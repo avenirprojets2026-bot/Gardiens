@@ -353,6 +353,157 @@
    "file": "boss_happy.candy.webp",
    "w": 432,
    "h": 501
+  },
+  "bg_sky.enchanted": {
+   "file": "bg_sky.enchanted.webp",
+   "w": 2400,
+   "h": 1272
+  },
+  "bg_hills.enchanted": {
+   "file": "bg_hills.enchanted.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "bg_forest.enchanted": {
+   "file": "bg_forest.enchanted.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "fg_bottom.enchanted": {
+   "file": "fg_bottom.enchanted.webp",
+   "w": 3200,
+   "h": 339
+  },
+  "fg_top.enchanted": {
+   "file": "fg_top.enchanted.webp",
+   "w": 3200,
+   "h": 285
+  },
+  "ground_mid.enchanted": {
+   "file": "ground_mid.enchanted.webp",
+   "w": 1065,
+   "h": 520,
+   "top": 62
+  },
+  "ground_l.enchanted": {
+   "file": "ground_l.enchanted.webp",
+   "w": 238,
+   "h": 520,
+   "top": 62
+  },
+  "ground_r.enchanted": {
+   "file": "ground_r.enchanted.webp",
+   "w": 238,
+   "h": 520,
+   "top": 62
+  },
+  "plat_big.enchanted": {
+   "file": "plat_big.enchanted.webp",
+   "w": 640,
+   "h": 371,
+   "top": 100,
+   "usableW": 550
+  },
+  "plat_med.enchanted": {
+   "file": "plat_med.enchanted.webp",
+   "w": 460,
+   "h": 390,
+   "top": 15,
+   "usableW": 395
+  },
+  "plat_small.enchanted": {
+   "file": "plat_small.enchanted.webp",
+   "w": 300,
+   "h": 133,
+   "top": 16,
+   "usableW": 258
+  },
+  "plat_bridge.enchanted": {
+   "file": "plat_bridge.enchanted.webp",
+   "w": 440,
+   "h": 258,
+   "top": 60,
+   "usableW": 418
+  },
+  "e_mushrooms": {
+   "file": "e_mushrooms.webp",
+   "w": 420,
+   "h": 476
+  },
+  "e_fern": {
+   "file": "e_fern.webp",
+   "w": 420,
+   "h": 561
+  },
+  "e_bells": {
+   "file": "e_bells.webp",
+   "w": 420,
+   "h": 496
+  },
+  "e_stump": {
+   "file": "e_stump.webp",
+   "w": 420,
+   "h": 277
+  },
+  "e_crystal": {
+   "file": "e_crystal.webp",
+   "w": 420,
+   "h": 492
+  },
+  "e_berry": {
+   "file": "e_berry.webp",
+   "w": 420,
+   "h": 512
+  },
+  "spring.enchanted": {
+   "file": "spring.enchanted.webp",
+   "w": 294,
+   "h": 493
+  },
+  "e_grass": {
+   "file": "e_grass.webp",
+   "w": 420,
+   "h": 378
+  },
+  "e_sign": {
+   "file": "e_sign.webp",
+   "w": 420,
+   "h": 323
+  },
+  "e_acorn": {
+   "file": "e_acorn.webp",
+   "w": 305,
+   "h": 341
+  },
+  "e_snailrock": {
+   "file": "e_snailrock.webp",
+   "w": 368,
+   "h": 345
+  },
+  "beetle.enchanted": {
+   "file": "beetle.enchanted.webp",
+   "w": 360,
+   "h": 256
+  },
+  "boss.enchanted": {
+   "file": "boss.enchanted.webp",
+   "w": 480,
+   "h": 498
+  },
+  "boss_charge.enchanted": {
+   "file": "boss_charge.enchanted.webp",
+   "w": 386,
+   "h": 480
+  },
+  "boss_stunned.enchanted": {
+   "file": "boss_stunned.enchanted.webp",
+   "w": 365,
+   "h": 454
+  },
+  "boss_happy.enchanted": {
+   "file": "boss_happy.enchanted.webp",
+   "w": 426,
+   "h": 498
   }
  },
  "sheets": {
