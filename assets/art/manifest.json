@@ -504,6 +504,81 @@
    "file": "boss_happy.enchanted.webp",
    "w": 426,
    "h": 498
+  },
+  "bgd_sky": {
+   "file": "bgd_sky.webp",
+   "w": 2400,
+   "h": 1272
+  },
+  "bgd_hills": {
+   "file": "bgd_hills.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "bgd_forest": {
+   "file": "bgd_forest.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "fgd_bottom": {
+   "file": "fgd_bottom.webp",
+   "w": 3200,
+   "h": 339
+  },
+  "fgd_top": {
+   "file": "fgd_top.webp",
+   "w": 3200,
+   "h": 285
+  },
+  "bgd_sky.candy": {
+   "file": "bgd_sky.candy.webp",
+   "w": 2400,
+   "h": 1272
+  },
+  "bgd_hills.candy": {
+   "file": "bgd_hills.candy.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "bgd_forest.candy": {
+   "file": "bgd_forest.candy.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "fgd_bottom.candy": {
+   "file": "fgd_bottom.candy.webp",
+   "w": 3200,
+   "h": 339
+  },
+  "fgd_top.candy": {
+   "file": "fgd_top.candy.webp",
+   "w": 3200,
+   "h": 285
+  },
+  "bgd_sky.enchanted": {
+   "file": "bgd_sky.enchanted.webp",
+   "w": 2400,
+   "h": 1272
+  },
+  "bgd_hills.enchanted": {
+   "file": "bgd_hills.enchanted.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "bgd_forest.enchanted": {
+   "file": "bgd_forest.enchanted.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "fgd_bottom.enchanted": {
+   "file": "fgd_bottom.enchanted.webp",
+   "w": 3200,
+   "h": 339
+  },
+  "fgd_top.enchanted": {
+   "file": "fgd_top.enchanted.webp",
+   "w": 3200,
+   "h": 285
   }
  },
  "sheets": {
