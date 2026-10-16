@@ -1,0 +1,28 @@
+{
+  "name": "gardiens-des-mondes-magiques",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Les Gardiens des Mondes Magiques — jeu de plateforme familial (Phaser 4, web)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "node tests/e2e/run.mjs",
+    "assets": "node tools/audio-manifest.mjs"
+  },
+  "dependencies": {
+    "@fontsource/baloo-2": "5.3.0",
+    "@fontsource/fredoka": "5.3.0",
+    "phaser": "4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "playwright": "^1.56.1",
+    "typescript": "5.9.3",
+    "vite": "7.1.12",
+    "vitest": "3.2.4"
+  }
+}

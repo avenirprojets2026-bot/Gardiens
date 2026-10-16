@@ -6,15 +6,27 @@
   <meta name="theme-color" content="#0e1d2e" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="description" content="Soumaya, Hajar et Zakaria partent rallumer les cristaux de dix mondes magiques. Jeu de plateforme familial." />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" href="./icon-192.png" />
   <title>Les Gardiens des Mondes Magiques</title>
-  <style>html,body{touch-action:none;-webkit-user-select:none;user-select:none;background:#0e1d2e;height:100%;margin:0;overflow:hidden}#game{width:100vw;height:100vh;justify-content:center;align-items:center;height:100dvh;display:flex}canvas{display:block}</style>
-  <script type="module" crossorigin src="./assets/index-BL5J_sFP.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/phaser-BQKECmz6.js">
-  <link rel="stylesheet" crossorigin href="./assets/index-CIH8-7o4.css">
+  <style>
+    html,body{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;background:#0e1d2e;height:100%;margin:0;overflow:hidden}
+    #game{width:100vw;height:100vh;height:100dvh;display:flex;justify-content:center;align-items:center}
+    canvas{display:block}
+    #rotate{display:none;position:fixed;inset:0;z-index:10;background:#0e1d2e;color:#ffe9b0;font:600 22px Fredoka,system-ui,sans-serif;text-align:center;align-items:center;justify-content:center;flex-direction:column;gap:18px;padding:24px}
+    #rotate svg{width:84px;height:84px}
+    @media (orientation: portrait) and (max-width: 900px){ body.touch #rotate{display:flex} }
+    #boot{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#cfe8ff;font:500 18px system-ui,sans-serif}
+  </style>
 </head>
 <body>
+  <div id="boot">Chargement…</div>
   <div id="game"></div>
+  <div id="rotate">
+    <svg viewBox="0 0 64 64" fill="none" stroke="#ffd77a" stroke-width="3"><rect x="20" y="6" width="24" height="44" rx="4"/><path d="M8 40a24 24 0 0 0 40 14M48 54l1-8-8 1"/></svg>
+    <div>Tourne ton téléphone<br/>pour jouer en grand !</div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 </html>
