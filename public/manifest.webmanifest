@@ -1,0 +1,16 @@
+{
+  "name": "Les Gardiens des Mondes Magiques",
+  "short_name": "Gardiens",
+  "description": "Jeu de plateforme familial : Soumaya, gardienne des étoiles, dans la Vallée des Lucioles.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#0e1d2e",
+  "theme_color": "#0e1d2e",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

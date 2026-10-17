@@ -1,0 +1,925 @@
+{
+ "images": {
+  "bg_sky": {
+   "file": "bg_sky.webp",
+   "w": 2400,
+   "h": 1272
+  },
+  "bg_hills": {
+   "file": "bg_hills.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "bg_forest": {
+   "file": "bg_forest.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "fg_bottom": {
+   "file": "fg_bottom.webp",
+   "w": 3200,
+   "h": 339
+  },
+  "fg_top": {
+   "file": "fg_top.webp",
+   "w": 3200,
+   "h": 285
+  },
+  "ground_mid": {
+   "file": "ground_mid.webp",
+   "w": 1165,
+   "h": 520,
+   "top": 22
+  },
+  "ground_l": {
+   "file": "ground_l.webp",
+   "w": 261,
+   "h": 520,
+   "top": 22
+  },
+  "ground_r": {
+   "file": "ground_r.webp",
+   "w": 261,
+   "h": 520,
+   "top": 22
+  },
+  "plat_big": {
+   "file": "plat_big.webp",
+   "w": 640,
+   "h": 339,
+   "top": 14,
+   "usableW": 550
+  },
+  "plat_med": {
+   "file": "plat_med.webp",
+   "w": 460,
+   "h": 351,
+   "top": 17,
+   "usableW": 395
+  },
+  "plat_small": {
+   "file": "plat_small.webp",
+   "w": 300,
+   "h": 162,
+   "top": 5,
+   "usableW": 258
+  },
+  "plat_bridge": {
+   "file": "plat_bridge.webp",
+   "w": 440,
+   "h": 218,
+   "top": 53,
+   "usableW": 418
+  },
+  "star": {
+   "file": "star.webp",
+   "w": 220,
+   "h": 221
+  },
+  "crystal": {
+   "file": "crystal.webp",
+   "w": 160,
+   "h": 254
+  },
+  "chest": {
+   "file": "chest.webp",
+   "w": 300,
+   "h": 278
+  },
+  "spring": {
+   "file": "spring.webp",
+   "w": 360,
+   "h": 424
+  },
+  "lantern": {
+   "file": "lantern.webp",
+   "w": 198,
+   "h": 340
+  },
+  "heart": {
+   "file": "heart.webp",
+   "w": 180,
+   "h": 168
+  },
+  "bush1": {
+   "file": "bush1.webp",
+   "w": 480,
+   "h": 468
+  },
+  "fern": {
+   "file": "fern.webp",
+   "w": 480,
+   "h": 444
+  },
+  "bush2": {
+   "file": "bush2.webp",
+   "w": 364,
+   "h": 395
+  },
+  "bush3": {
+   "file": "bush3.webp",
+   "w": 263,
+   "h": 256
+  },
+  "mushrooms": {
+   "file": "mushrooms.webp",
+   "w": 280,
+   "h": 261
+  },
+  "flowers1": {
+   "file": "flowers1.webp",
+   "w": 325,
+   "h": 337
+  },
+  "flowers2": {
+   "file": "flowers2.webp",
+   "w": 377,
+   "h": 344
+  },
+  "grass": {
+   "file": "grass.webp",
+   "w": 407,
+   "h": 498
+  },
+  "boulder": {
+   "file": "boulder.webp",
+   "w": 480,
+   "h": 333
+  },
+  "log": {
+   "file": "log.webp",
+   "w": 480,
+   "h": 169,
+   "top": 40,
+   "usableW": 441
+  },
+  "sign": {
+   "file": "sign.webp",
+   "w": 265,
+   "h": 384
+  },
+  "beetle": {
+   "file": "beetle.webp",
+   "w": 360,
+   "h": 271
+  },
+  "soumaya": {
+   "file": "soumaya.webp",
+   "w": 339,
+   "h": 900
+  },
+  "hajar": {
+   "file": "hajar.webp",
+   "w": 433,
+   "h": 900
+  },
+  "zakaria": {
+   "file": "zakaria.webp",
+   "w": 323,
+   "h": 900
+  },
+  "boss": {
+   "file": "boss.webp",
+   "w": 520,
+   "h": 420
+  },
+  "boss_charge": {
+   "file": "boss_charge.webp",
+   "w": 502,
+   "h": 442
+  },
+  "boss_stunned": {
+   "file": "boss_stunned.webp",
+   "w": 513,
+   "h": 392
+  },
+  "boss_happy": {
+   "file": "boss_happy.webp",
+   "w": 495,
+   "h": 420
+  },
+  "worldmap": {
+   "file": "worldmap.webp",
+   "w": 2400,
+   "h": 1340
+  },
+  "bg_sky.candy": {
+   "file": "bg_sky.candy.webp",
+   "w": 2400,
+   "h": 1272
+  },
+  "bg_hills.candy": {
+   "file": "bg_hills.candy.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "bg_forest.candy": {
+   "file": "bg_forest.candy.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "fg_bottom.candy": {
+   "file": "fg_bottom.candy.webp",
+   "w": 3200,
+   "h": 339
+  },
+  "fg_top.candy": {
+   "file": "fg_top.candy.webp",
+   "w": 3200,
+   "h": 285
+  },
+  "ground_mid.candy": {
+   "file": "ground_mid.candy.webp",
+   "w": 1266,
+   "h": 520,
+   "top": 6
+  },
+  "ground_l.candy": {
+   "file": "ground_l.candy.webp",
+   "w": 283,
+   "h": 520,
+   "top": 6
+  },
+  "ground_r.candy": {
+   "file": "ground_r.candy.webp",
+   "w": 283,
+   "h": 520,
+   "top": 6
+  },
+  "plat_big.candy": {
+   "file": "plat_big.candy.webp",
+   "w": 640,
+   "h": 389,
+   "top": 9,
+   "usableW": 550
+  },
+  "plat_med.candy": {
+   "file": "plat_med.candy.webp",
+   "w": 460,
+   "h": 183,
+   "top": 7,
+   "usableW": 395
+  },
+  "plat_small.candy": {
+   "file": "plat_small.candy.webp",
+   "w": 300,
+   "h": 211,
+   "top": 7,
+   "usableW": 258
+  },
+  "plat_bridge.candy": {
+   "file": "plat_bridge.candy.webp",
+   "w": 440,
+   "h": 134,
+   "top": 4,
+   "usableW": 418
+  },
+  "c_lollipop": {
+   "file": "c_lollipop.webp",
+   "w": 375,
+   "h": 627
+  },
+  "c_gumdrops": {
+   "file": "c_gumdrops.webp",
+   "w": 328,
+   "h": 435
+  },
+  "c_cupcake": {
+   "file": "c_cupcake.webp",
+   "w": 279,
+   "h": 588
+  },
+  "c_cane": {
+   "file": "c_cane.webp",
+   "w": 420,
+   "h": 452
+  },
+  "c_jellybush": {
+   "file": "c_jellybush.webp",
+   "w": 400,
+   "h": 312
+  },
+  "c_donut": {
+   "file": "c_donut.webp",
+   "w": 413,
+   "h": 352
+  },
+  "c_marshmallow": {
+   "file": "c_marshmallow.webp",
+   "w": 320,
+   "h": 541
+  },
+  "spring.candy": {
+   "file": "spring.candy.webp",
+   "w": 420,
+   "h": 301
+  },
+  "c_cottonbush": {
+   "file": "c_cottonbush.webp",
+   "w": 420,
+   "h": 349
+  },
+  "c_sign": {
+   "file": "c_sign.webp",
+   "w": 420,
+   "h": 412
+  },
+  "c_licorice": {
+   "file": "c_licorice.webp",
+   "w": 368,
+   "h": 484
+  },
+  "beetle.candy": {
+   "file": "beetle.candy.webp",
+   "w": 360,
+   "h": 300
+  },
+  "boss.candy": {
+   "file": "boss.candy.webp",
+   "w": 480,
+   "h": 501
+  },
+  "boss_charge.candy": {
+   "file": "boss_charge.candy.webp",
+   "w": 439,
+   "h": 491
+  },
+  "boss_stunned.candy": {
+   "file": "boss_stunned.candy.webp",
+   "w": 419,
+   "h": 488
+  },
+  "boss_happy.candy": {
+   "file": "boss_happy.candy.webp",
+   "w": 432,
+   "h": 501
+  },
+  "bg_sky.enchanted": {
+   "file": "bg_sky.enchanted.webp",
+   "w": 2400,
+   "h": 1272
+  },
+  "bg_hills.enchanted": {
+   "file": "bg_hills.enchanted.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "bg_forest.enchanted": {
+   "file": "bg_forest.enchanted.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "fg_bottom.enchanted": {
+   "file": "fg_bottom.enchanted.webp",
+   "w": 3200,
+   "h": 339
+  },
+  "fg_top.enchanted": {
+   "file": "fg_top.enchanted.webp",
+   "w": 3200,
+   "h": 285
+  },
+  "ground_mid.enchanted": {
+   "file": "ground_mid.enchanted.webp",
+   "w": 1065,
+   "h": 520,
+   "top": 62
+  },
+  "ground_l.enchanted": {
+   "file": "ground_l.enchanted.webp",
+   "w": 238,
+   "h": 520,
+   "top": 62
+  },
+  "ground_r.enchanted": {
+   "file": "ground_r.enchanted.webp",
+   "w": 238,
+   "h": 520,
+   "top": 62
+  },
+  "plat_big.enchanted": {
+   "file": "plat_big.enchanted.webp",
+   "w": 640,
+   "h": 371,
+   "top": 100,
+   "usableW": 550
+  },
+  "plat_med.enchanted": {
+   "file": "plat_med.enchanted.webp",
+   "w": 460,
+   "h": 390,
+   "top": 15,
+   "usableW": 395
+  },
+  "plat_small.enchanted": {
+   "file": "plat_small.enchanted.webp",
+   "w": 300,
+   "h": 133,
+   "top": 16,
+   "usableW": 258
+  },
+  "plat_bridge.enchanted": {
+   "file": "plat_bridge.enchanted.webp",
+   "w": 440,
+   "h": 258,
+   "top": 60,
+   "usableW": 418
+  },
+  "e_mushrooms": {
+   "file": "e_mushrooms.webp",
+   "w": 420,
+   "h": 476
+  },
+  "e_fern": {
+   "file": "e_fern.webp",
+   "w": 420,
+   "h": 561
+  },
+  "e_bells": {
+   "file": "e_bells.webp",
+   "w": 420,
+   "h": 496
+  },
+  "e_stump": {
+   "file": "e_stump.webp",
+   "w": 420,
+   "h": 277
+  },
+  "e_crystal": {
+   "file": "e_crystal.webp",
+   "w": 420,
+   "h": 492
+  },
+  "e_berry": {
+   "file": "e_berry.webp",
+   "w": 420,
+   "h": 512
+  },
+  "spring.enchanted": {
+   "file": "spring.enchanted.webp",
+   "w": 294,
+   "h": 493
+  },
+  "e_grass": {
+   "file": "e_grass.webp",
+   "w": 420,
+   "h": 378
+  },
+  "e_sign": {
+   "file": "e_sign.webp",
+   "w": 420,
+   "h": 323
+  },
+  "e_acorn": {
+   "file": "e_acorn.webp",
+   "w": 305,
+   "h": 341
+  },
+  "e_snailrock": {
+   "file": "e_snailrock.webp",
+   "w": 368,
+   "h": 345
+  },
+  "beetle.enchanted": {
+   "file": "beetle.enchanted.webp",
+   "w": 360,
+   "h": 256
+  },
+  "boss.enchanted": {
+   "file": "boss.enchanted.webp",
+   "w": 480,
+   "h": 498
+  },
+  "boss_charge.enchanted": {
+   "file": "boss_charge.enchanted.webp",
+   "w": 386,
+   "h": 480
+  },
+  "boss_stunned.enchanted": {
+   "file": "boss_stunned.enchanted.webp",
+   "w": 365,
+   "h": 454
+  },
+  "boss_happy.enchanted": {
+   "file": "boss_happy.enchanted.webp",
+   "w": 426,
+   "h": 498
+  },
+  "bgd_sky": {
+   "file": "bgd_sky.webp",
+   "w": 2400,
+   "h": 1272
+  },
+  "bgd_hills": {
+   "file": "bgd_hills.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "bgd_forest": {
+   "file": "bgd_forest.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "fgd_bottom": {
+   "file": "fgd_bottom.webp",
+   "w": 3200,
+   "h": 339
+  },
+  "fgd_top": {
+   "file": "fgd_top.webp",
+   "w": 3200,
+   "h": 285
+  },
+  "bgd_sky.candy": {
+   "file": "bgd_sky.candy.webp",
+   "w": 2400,
+   "h": 1272
+  },
+  "bgd_hills.candy": {
+   "file": "bgd_hills.candy.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "bgd_forest.candy": {
+   "file": "bgd_forest.candy.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "fgd_bottom.candy": {
+   "file": "fgd_bottom.candy.webp",
+   "w": 3200,
+   "h": 339
+  },
+  "fgd_top.candy": {
+   "file": "fgd_top.candy.webp",
+   "w": 3200,
+   "h": 285
+  },
+  "bgd_sky.enchanted": {
+   "file": "bgd_sky.enchanted.webp",
+   "w": 2400,
+   "h": 1272
+  },
+  "bgd_hills.enchanted": {
+   "file": "bgd_hills.enchanted.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "bgd_forest.enchanted": {
+   "file": "bgd_forest.enchanted.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "fgd_bottom.enchanted": {
+   "file": "fgd_bottom.enchanted.webp",
+   "w": 3200,
+   "h": 339
+  },
+  "fgd_top.enchanted": {
+   "file": "fgd_top.enchanted.webp",
+   "w": 3200,
+   "h": 285
+  },
+  "sky_lake": {
+   "file": "sky_lake.webp",
+   "w": 3660,
+   "h": 1024
+  },
+  "near_lake": {
+   "file": "near_lake.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_moon": {
+   "file": "sky_moon.webp",
+   "w": 3692,
+   "h": 1024
+  },
+  "near_moon": {
+   "file": "near_moon.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_realm": {
+   "file": "sky_realm.webp",
+   "w": 3088,
+   "h": 1024
+  },
+  "near_realm": {
+   "file": "near_realm.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_ember": {
+   "file": "sky_ember.webp",
+   "w": 3660,
+   "h": 1024
+  },
+  "near_ember": {
+   "file": "near_ember.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_ruins": {
+   "file": "sky_ruins.webp",
+   "w": 3620,
+   "h": 1024
+  },
+  "near_ruins": {
+   "file": "near_ruins.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_candles": {
+   "file": "sky_candles.webp",
+   "w": 3668,
+   "h": 1024
+  },
+  "near_candles": {
+   "file": "near_candles.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_bridge": {
+   "file": "sky_bridge.webp",
+   "w": 3660,
+   "h": 1024
+  },
+  "near_bridge": {
+   "file": "near_bridge.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_cave": {
+   "file": "sky_cave.webp",
+   "w": 3728,
+   "h": 1024
+  },
+  "near_cave": {
+   "file": "near_cave.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_runes": {
+   "file": "sky_runes.webp",
+   "w": 3008,
+   "h": 1024
+  },
+  "near_runes": {
+   "file": "near_runes.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_castle": {
+   "file": "sky_castle.webp",
+   "w": 3088,
+   "h": 1024
+  },
+  "near_castle": {
+   "file": "near_castle.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_path": {
+   "file": "sky_path.webp",
+   "w": 3088,
+   "h": 1024
+  },
+  "near_path": {
+   "file": "near_path.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_grove": {
+   "file": "sky_grove.webp",
+   "w": 4212,
+   "h": 1024
+  },
+  "near_grove": {
+   "file": "near_grove.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_jungle": {
+   "file": "sky_jungle.webp",
+   "w": 3660,
+   "h": 1024
+  },
+  "near_jungle": {
+   "file": "near_jungle.webp",
+   "w": 3600,
+   "h": 764
+  }
+ },
+ "sheets": {
+  "soumaya_run": {
+   "file": "soumaya_run.webp",
+   "frameW": 170,
+   "frameH": 329,
+   "frames": 6,
+   "fps": 12,
+   "loop": true,
+   "contentH": 300,
+   "originY": 0.9756838905775076,
+   "originX": 0.5
+  },
+  "soumaya_walk": {
+   "file": "soumaya_walk.webp",
+   "frameW": 169,
+   "frameH": 315,
+   "frames": 6,
+   "fps": 9,
+   "loop": true,
+   "contentH": 300,
+   "originY": 0.9746031746031746,
+   "originX": 0.5
+  },
+  "soumaya_jump": {
+   "file": "soumaya_jump.webp",
+   "frameW": 179,
+   "frameH": 300,
+   "frames": 5,
+   "fps": 10,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9733333333333334,
+   "originX": 0.5
+  },
+  "soumaya_cast": {
+   "file": "soumaya_cast.webp",
+   "frameW": 199,
+   "frameH": 321,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9750778816199377,
+   "originX": 0.5
+  },
+  "soumaya_victory": {
+   "file": "soumaya_victory.webp",
+   "frameW": 180,
+   "frameH": 300,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9733333333333334,
+   "originX": 0.5
+  },
+  "soumaya_surprised": {
+   "file": "soumaya_surprised.webp",
+   "frameW": 176,
+   "frameH": 310,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9741935483870968,
+   "originX": 0.5
+  },
+  "soumaya_idle": {
+   "file": "soumaya_idle.webp",
+   "frameW": 142,
+   "frameH": 315,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9746031746031746,
+   "originX": 0.5
+  },
+  "hajar_run": {
+   "file": "hajar_run.webp",
+   "frameW": 197,
+   "frameH": 316,
+   "frames": 6,
+   "fps": 12,
+   "loop": true,
+   "contentH": 300,
+   "originY": 0.9746835443037974,
+   "originX": 0.5
+  },
+  "hajar_jump": {
+   "file": "hajar_jump.webp",
+   "frameW": 215,
+   "frameH": 371,
+   "frames": 5,
+   "fps": 10,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9784366576819407,
+   "originX": 0.5
+  },
+  "hajar_cast": {
+   "file": "hajar_cast.webp",
+   "frameW": 198,
+   "frameH": 308,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.974025974025974,
+   "originX": 0.5
+  },
+  "hajar_victory": {
+   "file": "hajar_victory.webp",
+   "frameW": 165,
+   "frameH": 307,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9739413680781759,
+   "originX": 0.5
+  },
+  "hajar_surprised": {
+   "file": "hajar_surprised.webp",
+   "frameW": 181,
+   "frameH": 308,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.974025974025974,
+   "originX": 0.5
+  },
+  "hajar_idle": {
+   "file": "hajar_idle.webp",
+   "frameW": 161,
+   "frameH": 314,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9745222929936306,
+   "originX": 0.5
+  },
+  "zakaria_run": {
+   "file": "zakaria_run.webp",
+   "frameW": 191,
+   "frameH": 315,
+   "frames": 6,
+   "fps": 12,
+   "loop": true,
+   "contentH": 300,
+   "originY": 0.9746031746031746,
+   "originX": 0.5
+  },
+  "zakaria_jump": {
+   "file": "zakaria_jump.webp",
+   "frameW": 227,
+   "frameH": 332,
+   "frames": 5,
+   "fps": 10,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9759036144578314,
+   "originX": 0.5
+  },
+  "zakaria_cast": {
+   "file": "zakaria_cast.webp",
+   "frameW": 170,
+   "frameH": 308,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.974025974025974,
+   "originX": 0.5
+  },
+  "zakaria_victory": {
+   "file": "zakaria_victory.webp",
+   "frameW": 193,
+   "frameH": 291,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9725085910652921,
+   "originX": 0.5
+  },
+  "zakaria_surprised": {
+   "file": "zakaria_surprised.webp",
+   "frameW": 176,
+   "frameH": 309,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9741100323624595,
+   "originX": 0.5
+  },
+  "zakaria_idle": {
+   "file": "zakaria_idle.webp",
+   "frameW": 133,
+   "frameH": 313,
+   "frames": 1,
+   "fps": 1,
+   "loop": false,
+   "contentH": 300,
+   "originY": 0.9744408945686901,
+   "originX": 0.5
+  }
+ }
+}
