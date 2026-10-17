@@ -26,3 +26,16 @@ export function fadeTo(scene: Phaser.Scene, key: string, data?: object, ms = 500
 export function resetLeaving(scene: Phaser.Scene): void {
   (scene as Phaser.Scene & { _leaving?: boolean })._leaving = false;
 }
+
+/** Décalage horizontal pour centrer une mise en page conçue en 1280 de large sur une vue plus large. */
+export const DESIGN_OFFSET = (VIEW_W - 1280) / 2;
+
+/** Décale tous les objets créés après `from` (index dans la liste d'affichage) de DESIGN_OFFSET. */
+export function centerDesign(scene: Phaser.Scene, from: number): void {
+  if (!DESIGN_OFFSET) return;
+  const list = scene.children.list;
+  for (let i = from; i < list.length; i++) {
+    const o = list[i] as Phaser.GameObjects.GameObject & { x?: number };
+    if (typeof o.x === 'number') o.x += DESIGN_OFFSET;
+  }
+}

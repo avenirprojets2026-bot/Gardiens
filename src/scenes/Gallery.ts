@@ -6,7 +6,7 @@ import { REWARDS } from '../data/rewards';
 import { CUTSCENE_ORDER, CUTSCENES } from '../data/story';
 import { WORLDS } from '../data/worlds';
 import { makeButton, makePanel, title } from '../ui/widgets';
-import { fadeTo, resetLeaving, setupCamera } from './common';
+import { centerDesign, fadeTo, resetLeaving, setupCamera } from './common';
 
 // Galerie des trésors : récompenses gagnées, progression par monde, cinématiques à revoir.
 
@@ -24,7 +24,8 @@ export class GalleryScene extends Phaser.Scene {
       bg.setScale(Math.max(VIEW_W / bg.width, VIEW_H / bg.height));
     }
     this.add.rectangle(VIEW_W / 2, VIEW_H / 2, VIEW_W, VIEW_H, 0x081428, 0.5);
-    title(this, VIEW_W / 2, 50, 'Trésors des Gardiens', 50);
+    const designStart = this.children.list.length;
+    title(this, 640, 50, 'Trésors des Gardiens', 50);
     makeButton(this, 80, 50, '◀', () => fadeTo(this, 'WorldMap', {}, 350), { w: 76, h: 56, size: 28 });
 
     // Récompenses.
@@ -75,6 +76,7 @@ export class GalleryScene extends Phaser.Scene {
       }, { w: 200, h: 48, size: 15 });
       if (!seen) b.setAlpha(0.55);
     });
+    centerDesign(this, designStart);
     audio.play('music', 'music_title', 800);
     this.cameras.main.fadeIn(400, 10, 20, 30);
   }

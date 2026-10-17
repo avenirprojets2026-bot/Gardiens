@@ -168,3 +168,115 @@ if want('music_boss'):
     for b in range(0, len(prog), 2):
         tr.add(timpani(midi(38)), b * 4 * beat, 0.45)
     finish('music_boss', tr, L, mean=-15.5, rev=(1.8, 0.22))
+
+
+# ------------------------------------------------------------------ Thèmes des mondes 4 à 10
+def world_theme(name, bpm, prog, mel, lead, lead_gain, arp_inst, base_chord=50, arp_base=62, pattern=(0, 1, 2, 1),
+                drums_on=False, mean=-17.0, rev=(2.6, 0.3), bass_rhythm=((0, 2), (2, 2)), counter=None):
+    if not want(name):
+        return
+    beat = 60 / bpm
+    L = len(prog) * 4 * beat
+    tr = Track(L + 4)
+    end = melody(tr, mel, beat, lead, lead_gain)
+    # Reprise de la mélodie une octave plus haut en célesta pour la seconde moitié.
+    if end < L * 0.75:
+        melody(tr, mel, beat, celesta, lead_gain * 0.45, start=end, octave=12)
+    if counter:
+        melody(tr, counter, beat, strings, 0.12)
+    chords_layer(tr, prog, beat, 4, pad, 0.09, base=base_chord)
+    arpeggio(tr, prog, beat, 4, arp_inst, 0.14, base=arp_base, pattern=pattern, sub=2)
+    bassline(tr, prog, beat, 4, 0.34, base=base_chord - 12, rhythm=bass_rhythm)
+    if drums_on:
+        drums(tr, len(prog), beat, intensity=0.7)
+    finish(name, tr, L, mean=mean, rev=rev)
+
+
+bell_soft = lambda f, d: bell(f, max(d, 0.9), 0.6)
+harp = lambda f, d: pluck(f, 1.4, 0.997)
+
+# Lac des Cristaux : mi mineur, 84 bpm, célesta et cloches dans une grande réverbération.
+world_theme('music_crystal', 84, ['Em', 'C', 'G', 'D', 'Em', 'C', 'Am', 'B'] * 2, [
+    ('B5', 1.5), ('G5', .5), ('E5', 2),
+    ('C6', 1.5), ('B5', .5), ('G5', 2),
+    ('D6', 1), ('B5', 1), ('G5', 1), ('A5', 1),
+    ('F#5', 4),
+    ('B5', 1.5), ('G5', .5), ('E5', 1), ('G5', 1),
+    ('E6', 1.5), ('D6', .5), ('C6', 2),
+    ('A5', 1), ('C6', 1), ('E6', 1), ('D6', 1),
+    ('B5', 4),
+], celesta, 0.36, bell_soft, pattern=(0, 2, 1, 2), rev=(3.6, 0.4), mean=-18.0)
+
+# Îles Célestes : ré majeur, 108 bpm, flûte légère et harpe, un peu de percussion.
+world_theme('music_sky', 108, ['D', 'A', 'Bm', 'G', 'D', 'A', 'G', 'A'] * 2, [
+    ('F#5', 1), ('A5', 1), ('D6', 1.5), ('C#6', .5),
+    ('B5', 1), ('A5', 1), ('E5', 2),
+    ('F#5', 1), ('B5', 1), ('D6', 1), ('F#6', 1),
+    ('E6', 3), (None, 1),
+    ('A5', 1), ('F#5', .5), ('A5', .5), ('D6', 1), ('E6', 1),
+    ('C#6', 1), ('A5', 1), ('E6', 2),
+    ('D6', 1), ('B5', 1), ('G5', 1), ('B5', 1),
+    ('A5', 4),
+], flute, 0.34, harp, pattern=(0, 1, 2, 3), drums_on=True, mean=-17.0, rev=(2.4, 0.3))
+
+# Observatoire : la mineur harmonique, 96 bpm, cordes pincées « mécaniques » et cloches.
+world_theme('music_observatory', 96, ['Am', 'E', 'Am', 'G', 'F', 'C', 'Dm', 'E'] * 2, [
+    ('A5', .5), ('B5', .5), ('C6', 1), ('E6', 1), ('D6', 1),
+    ('B5', 1), ('G#5', 1), ('E5', 2),
+    ('A5', .5), ('C6', .5), ('E6', 1), ('A6', 1), ('G6', 1),
+    ('F6', 1), ('E6', 1), ('D6', 2),
+    ('C6', .5), ('D6', .5), ('E6', 1), ('C6', 1), ('A5', 1),
+    ('G5', 1), ('C6', 1), ('E6', 2),
+    ('F6', 1), ('E6', 1), ('D6', 1), ('C6', 1),
+    ('B5', 2), ('G#5', 2),
+], lambda f, d: pluck(f, max(0.6, d), 0.995), 0.36, bell_soft, pattern=(0, 1, 2, 1, 0, 2), mean=-17.5, rev=(2.0, 0.25))
+
+# Royaume des Ombres : do mineur, 72 bpm, mystérieux mais rassurant (pas effrayant).
+world_theme('music_shadow', 72, ['Cm', 'Ab', 'Eb', 'Bb', 'Cm', 'Ab', 'Fm', 'G'] * 2, [
+    ('G5', 2), ('Eb5', 1), ('C5', 1),
+    ('Ab5', 2), ('G5', 1), ('Eb5', 1),
+    ('Bb5', 1.5), ('G5', .5), ('Eb5', 2),
+    ('D5', 4),
+    ('G5', 1), ('C6', 1), ('Bb5', 1), ('G5', 1),
+    ('Ab5', 2), ('C6', 2),
+    ('Bb5', 1), ('Ab5', 1), ('F5', 2),
+    ('G5', 4),
+], strings, 0.26, bell_soft, base_chord=48, arp_base=60, pattern=(0, 2, 1, 2), mean=-19.0, rev=(3.8, 0.4))
+
+# Sanctuaire des Étoiles : mi majeur, 76 bpm, nappes et cloches cristallines, très aérien.
+world_theme('music_stars', 76, ['E', 'C#m', 'A', 'B', 'E', 'G#m', 'A', 'B'] * 2, [
+    ('G#5', 2), ('B5', 1), ('E6', 1),
+    ('C#6', 2), ('B5', 2),
+    ('A5', 1), ('C#6', 1), ('E6', 1), ('F#6', 1),
+    ('D#6', 4),
+    ('E6', 1.5), ('B5', .5), ('G#5', 2),
+    ('B5', 1), ('D#6', 1), ('F#6', 2),
+    ('E6', 1), ('C#6', 1), ('A5', 2),
+    ('B5', 4),
+], bell_soft, 0.3, celesta, pattern=(0, 1, 2, 3, 2, 1), mean=-18.5, rev=(4.0, 0.42))
+
+# Citadelle : si bémol majeur, 112 bpm, cuivres héroïques et tambours.
+world_theme('music_citadel', 112, ['Bb', 'F', 'Gm', 'Eb', 'Bb', 'F', 'Eb', 'F'] * 2, [
+    ('D5', 1), ('F5', 1), ('Bb5', 1.5), ('A5', .5),
+    ('G5', 1), ('F5', 1), ('C5', 2),
+    ('D5', 1), ('G5', 1), ('Bb5', 1), ('D6', 1),
+    ('C6', 3), (None, 1),
+    ('F5', 1), ('Bb5', 1), ('D6', 1.5), ('C6', .5),
+    ('Bb5', 1), ('A5', 1), ('F5', 2),
+    ('G5', 1), ('Bb5', 1), ('Eb6', 1), ('D6', 1),
+    ('C6', 4),
+], brass, 0.3, harp, base_chord=46, arp_base=58, drums_on=True, mean=-16.0, rev=(2.2, 0.26),
+    bass_rhythm=((0, 1.5), (1.5, 0.5), (2, 2)))
+
+# Cœur des Mondes : do majeur, 92 bpm, le thème principal réorchestré avec tout l'orchestre.
+world_theme('music_final', 92, ['C', 'Am', 'F', 'G', 'C', 'Em', 'F', 'G'] * 2, [
+    ('E5', 1), ('G5', 1), ('C6', 1.5), ('B5', .5),
+    ('A5', 1), ('G5', 1), ('E5', 2),
+    ('F5', 1), ('A5', 1), ('C6', 1), ('E6', 1),
+    ('D6', 3), (None, 1),
+    ('E6', 1), ('D6', .5), ('C6', .5), ('G5', 1), ('C6', 1),
+    ('B5', 1), ('G5', 1), ('E6', 2),
+    ('F6', 1), ('E6', 1), ('D6', 1), ('B5', 1),
+    ('C6', 4),
+], brass, 0.26, harp, drums_on=True, mean=-16.0, rev=(2.8, 0.3),
+    counter=[('C5', 4), ('A4', 4), ('F4', 4), ('G4', 4), ('C5', 4), ('B4', 4), ('A4', 4), ('B4', 4)])

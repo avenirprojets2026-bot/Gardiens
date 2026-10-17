@@ -4,7 +4,7 @@ import { saves, type Difficulty, type HeroId } from '../core/save';
 import { FONT_BODY, FONT_TITLE, VIEW_H, VIEW_W } from '../config';
 import { HERO_ORDER, HEROES } from '../data/heroes';
 import { makeButton, makePanel, title, type Button } from '../ui/widgets';
-import { fadeTo, resetLeaving, setupCamera } from './common';
+import { centerDesign, DESIGN_OFFSET, fadeTo, resetLeaving, setupCamera } from './common';
 
 // Sélection du héros : grande scène animée (le héros court, saute, lance son pouvoir),
 // fiche de présentation, médaillons de choix, niveau de difficulté.
@@ -41,7 +41,8 @@ export class HeroSelectScene extends Phaser.Scene {
       this.bg.push(ts);
     }
     this.add.rectangle(VIEW_W / 2, VIEW_H / 2, VIEW_W, VIEW_H, 0x0b1626, 0.45);
-    title(this, VIEW_W / 2, 50, 'Choisis ton héros', 52);
+    const designStart = this.children.list.length;
+    title(this, 640, 50, 'Choisis ton héros', 52);
 
     // Scène du héros : estrade lumineuse.
     const sx = 330;
@@ -62,7 +63,7 @@ export class HeroSelectScene extends Phaser.Scene {
     this.info = this.add.container(0, 0);
 
     // Médaillons.
-    HERO_ORDER.forEach((id, i) => this.buildMedallion(id, 160 + i * 170, 650));
+    HERO_ORDER.forEach((id, i) => this.buildMedallion(id, 160 + i * 170, 612));
 
     // Difficulté.
     const diffs: [Difficulty, string, string][] = [
@@ -98,6 +99,7 @@ export class HeroSelectScene extends Phaser.Scene {
     kb.on('keydown-LEFT', () => this.pick(HERO_ORDER[(HERO_ORDER.indexOf(this.selected) + 2) % 3]));
     kb.on('keydown-RIGHT', () => this.pick(HERO_ORDER[(HERO_ORDER.indexOf(this.selected) + 1) % 3]));
     kb.on('keydown-ENTER', () => go.emit('pointerdown'));
+    centerDesign(this, designStart);
     this.pick(this.selected, true);
     audio.play('music', 'music_title', 800);
     this.cameras.main.fadeIn(500, 10, 20, 30);
@@ -113,11 +115,7 @@ export class HeroSelectScene extends Phaser.Scene {
       ring.lineStyle(on ? 7 : 4, on ? h.color : 0xc98a3c, 1).strokeCircle(0, 0, 66);
     };
     draw(false);
-    const mask = this.make.graphics({}, false).fillCircle(x, y, 60);
-    // Portrait : la tête (≈ 12 % du haut de l'illustration) centrée dans le médaillon.
-    const face = this.add.image(0, 0, id).setOrigin(0.5, 0.13);
-    face.setScale(560 / face.height);
-    face.setMask(mask.createGeometryMask());
+    const face = this.add.image(0, 0, this.portrait(id)).setDisplaySize(120, 120);
     const name = this.add
       .text(0, 82, h.name, { fontFamily: FONT_TITLE, fontSize: '24px', fontStyle: '800', color: '#fff3c8' })
       .setOrigin(0.5)
@@ -127,6 +125,30 @@ export class HeroSelectScene extends Phaser.Scene {
     c.on('pointerover', () => audio.sfx('sfx_ui_hover', { volume: 0.4 }));
     (ring as Phaser.GameObjects.Graphics & { redraw?: (on: boolean) => void }).redraw = draw;
     this.medallions.push({ id, c, ring });
+  }
+
+  /** Portrait rond (tête du héros) dessiné une fois dans une texture : pas de masque à aligner. */
+  private portrait(id: HeroId): string {
+    const key = `portrait_${id}`;
+    if (this.textures.exists(key)) return key;
+    const src = this.textures.get(id).getSourceImage() as HTMLImageElement;
+    const c = this.textures.createCanvas(key, 160, 160)!;
+    const g = c.getContext();
+    g.save();
+    g.beginPath();
+    g.arc(80, 80, 78, 0, Math.PI * 2);
+    g.clip();
+    const grd = g.createLinearGradient(0, 0, 0, 160);
+    grd.addColorStop(0, '#fff4dc');
+    grd.addColorStop(1, '#f0d29a');
+    g.fillStyle = grd;
+    g.fillRect(0, 0, 160, 160);
+    // La tête occupe le haut de l'illustration en pied : on cadre un carré centré dessus.
+    const side = src.width * 0.78;
+    g.drawImage(src, (src.width - side) / 2, src.height * 0.005, side, side, 0, 0, 160, 160);
+    g.restore();
+    c.refresh();
+    return key;
   }
 
   private pick(id: HeroId, silent = false): void {
@@ -145,7 +167,7 @@ export class HeroSelectScene extends Phaser.Scene {
 
     // Fiche du héros.
     this.info.removeAll(true);
-    const px = 930;
+    const px = 930; // le conteneur est déjà décalé par centerDesign
     this.info.add(makePanel(this, px, 300, 560, 400));
     this.info.add(
       this.add.text(px, 140, h.name, { fontFamily: FONT_TITLE, fontSize: '54px', fontStyle: '800', color: '#4a2a10' }).setOrigin(0.5),
@@ -172,8 +194,8 @@ export class HeroSelectScene extends Phaser.Scene {
         .text(px, 466, `Pouvoir (X) : ${h.powerName}`, { fontFamily: FONT_TITLE, fontSize: '24px', fontStyle: '800', color: '#a0561a' })
         .setOrigin(0.5),
     );
-    this.info.setAlpha(0).x = 30;
-    this.tweens.add({ targets: this.info, alpha: 1, x: 0, duration: 280, ease: 'Cubic.easeOut' });
+    this.info.setAlpha(0).x = DESIGN_OFFSET + 30;
+    this.tweens.add({ targets: this.info, alpha: 1, x: DESIGN_OFFSET, duration: 280, ease: 'Cubic.easeOut' });
   }
 
   /** Démonstration en boucle : repos → course → saut → pouvoir. */

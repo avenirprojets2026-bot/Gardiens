@@ -59,6 +59,7 @@ physique, caméra, entrées, 9 niveaux, 2 types de boss, toutes les scènes.
   est prévue (accord donné, cahier des charges dans `tools/art/brief.json`, intégration automatique par
   `tools/art/process.py`), mais le réseau de l'environnement bloque `upload.higgsfield.ai` et
   `d2ol7oe51mr4n9.cloudfront.net`.
-- Écran de téléphone plus large que 16:9 : bandes noires sur les côtés (à améliorer : élargir la vue).
+- Écrans larges (téléphones 19,5:9) : la vue s’élargit jusqu’à 1600 px logiques, sans bandes noires.
+- Captures réelles du jeu exécuté : dossier `docs-captures/`.
 - **Nouveaux designs des héros (sorcière, fée, chevalier) : choisis, pas encore réalisés**, pour la même raison.
 - Exports Windows / Android natifs : non produits.
