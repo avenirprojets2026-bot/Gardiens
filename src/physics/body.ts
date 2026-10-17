@@ -152,16 +152,16 @@ export class PlatformerBody {
 
     // Horizontal : accélération/décélération, demi-tour vif, glace glissante.
     const ctrl = this.wallLock > 0 ? 0.25 : 1;
-    const target = dir * p.maxRun;
+    // Le vent décale la vitesse visée : porté par une rafale, ralenti face à elle.
+    const target = dir * p.maxRun + (env.wind ?? 0) * 0.3;
     const ice = this.grounded && this.groundMaterial === 'ice';
     let accel: number;
-    if (dir === 0) accel = this.grounded ? p.decelGround * (ice ? 0.16 : 1) : p.decelAir;
+    if (dir === 0) accel = (this.grounded ? p.decelGround * (ice ? 0.16 : 1) : p.decelAir) * (env.wind ? 0.5 : 1);
     else {
       accel = this.grounded ? p.accelGround * (ice ? 0.45 : 1) : p.accelAir;
       if (Math.sign(this.vx) !== 0 && Math.sign(this.vx) !== dir) accel *= p.turnBoost;
     }
     this.vx = approach(this.vx, target, accel * ctrl * dt);
-    if (env.wind) this.vx += env.wind * dt * (this.grounded ? 0.35 : 1);
     if (this.wallLock > 0) this.wallLock -= dt;
 
     // Fenêtres de tolérance.

@@ -226,7 +226,106 @@ CUTSCENES.world4_end = {
   ],
 };
 
-export const CUTSCENE_ORDER = ['intro', 'world1_end', 'world2', 'world2_end', 'world3', 'world3_end', 'world4', 'world4_end'];
+/** Arrivée dans un monde : le héros découvre le décor, Lumi explique la nouveauté. */
+function arrival(id: string, title: string, theme: string, mood: Shot['mood'], lines: Line[], fx?: Shot['fx']): Cutscene {
+  return { id, title, music: 'music_story', shots: [{ theme, mood, pan: 1, lumi: true, fx, actors: [{ key: 'hero', x: 0.35, enter: 'left', h: 460 }], lines }] };
+}
+
+/** Fin d'un monde : le gardien libéré remercie. */
+function farewell(id: string, title: string, theme: string, mood: Shot['mood'], lines: Line[]): Cutscene {
+  return {
+    id, title, music: 'music_story',
+    shots: [{ theme, mood, lumi: true, fx: 'dawn', actors: [{ key: `boss_happy.${theme}`, x: 0.72, enter: 'fade', h: 340, flip: true }, { key: 'hero', x: 0.3, enter: 'left', h: 460 }], lines }],
+  };
+}
+
+Object.assign(CUTSCENES, {
+  world5: arrival('world5', 'Les Îles Célestes', 'sky', 'day', [
+    { who: 'hero', text: 'On marche sur les nuages ! Ils sont tout doux.' },
+    { who: 'lumi', text: 'Attention, certains s’effacent un instant, et le vent pousse très fort.' },
+  ], 'sparkles'),
+  world5_end: farewell('world5_end', 'Un arc-en-ciel', 'sky', 'day', [
+    { who: 'boss', text: 'Je grondais comme l’orage… pardon ! Tenez, un arc-en-ciel pour vous.' },
+    { who: 'lumi', text: 'Cinq cristaux ! Le voile file vers l’Observatoire.' },
+  ]),
+  world6: arrival('world6', 'L’Observatoire Magique', 'observatory', 'dusk', [
+    { who: 'hero', text: 'Des lunettes géantes, des sphères qui tournent… c’est magnifique !' },
+    { who: 'lumi', text: 'Les plateformes suivent les engrenages : observe leur rythme avant de sauter.' },
+  ], 'sparkles'),
+  world6_end: farewell('world6_end', 'L’heure des étoiles', 'observatory', 'night', [
+    { who: 'boss', text: 'Tic, tac… Mes étoiles étaient en retard à cause du voile. Merci !' },
+    { who: 'lumi', text: 'Plus que quatre mondes. Le prochain est tout noir… mais nous avons de la lumière.' },
+  ]),
+  world7: arrival('world7', 'Le Royaume des Ombres', 'shadow', 'night', [
+    { who: 'hero', text: 'On n’y voit presque rien…' },
+    { who: 'lumi', text: 'Allume chaque lanterne. Et souviens-toi : ta lumière fait reculer l’ombre.' },
+  ], 'gloom'),
+  world7_end: farewell('world7_end', 'Un ami dans le noir', 'shadow', 'night', [
+    { who: 'boss', text: 'Je crachais des ombres parce que j’étais tout seul dans le noir…' },
+    { who: 'hero', text: 'Maintenant tu as des amis. Et une lanterne !' },
+  ]),
+  world8: arrival('world8', 'Le Sanctuaire des Étoiles', 'stars', 'night', [
+    { who: 'hero', text: 'Je flotte ! On dirait que je suis dans l’espace !' },
+    { who: 'lumi', text: 'Ici les sauts durent longtemps. Profites-en pour viser les plateformes lointaines.' },
+  ], 'crystals'),
+  world8_end: farewell('world8_end', 'Les constellations', 'stars', 'night', [
+    { who: 'boss', text: 'Toutes mes constellations brillent à nouveau. Votre courage est une étoile, petits Gardiens.' },
+    { who: 'lumi', text: 'La Citadelle des anciens Gardiens nous attend.' },
+  ]),
+  world9: arrival('world9', 'La Citadelle des Gardiens', 'citadel', 'dusk', [
+    { who: 'hero', text: 'C’est ici que vivaient les Gardiens d’avant ?' },
+    { who: 'lumi', text: 'Oui. Leurs trois statues gardent la porte du Cœur des Mondes. Montrez-leur tout ce que vous avez appris.' },
+  ], 'dawn'),
+  world9_end: farewell('world9_end', 'L’héritage', 'citadel', 'dusk', [
+    { who: 'boss', text: 'Vous êtes de vrais Gardiens. Allez, le Cœur des Mondes vous attend.' },
+    { who: 'lumi', text: 'Le dernier voyage… Je suis si fière de vous.' },
+  ]),
+  world10: arrival('world10', 'Le Cœur des Mondes', 'heart', 'night', [
+    { who: 'hero', text: 'Tous les mondes sont là, autour du Grand Cristal…' },
+    { who: 'lumi', text: 'Et au centre, la Fileuse d’Ombre. Elle a l’air si triste.' },
+  ], 'crystals'),
+  finale: {
+    id: 'finale',
+    title: 'Le Grand Cristal',
+    music: 'music_story',
+    shots: [
+      {
+        theme: 'heart', mood: 'night', lumi: true, fx: 'crystals',
+        actors: [{ key: 'boss_happy.heart', x: 0.72, enter: 'fade', h: 360, flip: true }, { key: 'hero', x: 0.3, enter: 'left', h: 460 }],
+        lines: [
+          { who: 'boss', text: 'J’ai tissé ce voile parce que personne ne venait jamais me voir…' },
+          { who: 'hero', text: 'Alors viens avec nous ! On a plein d’amis dans dix mondes.' },
+        ],
+      },
+      {
+        image: 'worldmap', actors: [], fx: 'dawn',
+        lines: [
+          { who: 'narrator', text: 'Le Grand Cristal s’est rallumé, plus brillant que jamais.' },
+          { who: 'narrator', text: 'Les dix mondes se sont réveillés, et leurs gardiens ont retrouvé le sourire.' },
+        ],
+      },
+      {
+        theme: 'forest', mood: 'dusk', pan: 1, lumi: true, fx: 'sparkles',
+        actors: [
+          { key: 'hajar', x: 0.24, enter: 'left', h: 470 },
+          { key: 'soumaya', x: 0.5, enter: 'fade', h: 520, glow: 0xffd36b },
+          { key: 'zakaria', x: 0.76, enter: 'right', h: 420, flip: true },
+        ],
+        lines: [
+          { who: 'lumi', text: 'Merci, Gardiens. Les mondes magiques vous appartiennent.' },
+          { who: 'soumaya', text: 'On reviendra chercher toutes les étoiles !' },
+          { who: 'zakaria', text: 'Et les coffres secrets !' },
+          { who: 'hajar', text: 'Fin… ou peut-être le début d’une autre aventure.' },
+        ],
+      },
+    ],
+  },
+});
+
+export const CUTSCENE_ORDER = [
+  'intro', 'world1_end', 'world2', 'world2_end', 'world3', 'world3_end', 'world4', 'world4_end', 'world5', 'world5_end',
+  'world6', 'world6_end', 'world7', 'world7_end', 'world8', 'world8_end', 'world9', 'world9_end', 'world10', 'finale',
+];
 
 export const SPEAKERS: Record<string, { name: string; color: string }> = {
   soumaya: { name: 'Soumaya', color: '#ffd36b' },

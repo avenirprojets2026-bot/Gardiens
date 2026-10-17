@@ -10,7 +10,8 @@ import type { HeroId } from '../../src/core/save';
 // on simule des sauts (pleins, courts, double saut + vol plané) et des chutes, à plusieurs
 // instants pour les plateformes mobiles, puis on cherche un chemin du départ jusqu'à l'arrivée.
 
-type Action = 'jump' | 'short' | 'walk' | 'double' | 'still';
+/** hop / hopShort : saut en courant, puis on lâche la direction pour retomber plus court. */
+type Action = 'jump' | 'short' | 'walk' | 'double' | 'still' | 'hop' | 'hopShort';
 
 function surfaceUnder(body: PlatformerBody, solids: Solid[]): Solid | undefined {
   return solids.find(
@@ -30,7 +31,8 @@ function simulate(L: LevelDef, solids: Solid[], p: BodyParams, from: Solid, x: n
   for (let i = 0; i < 120 * 4; i++) {
     t += STEP;
     const first = i === 0;
-    const holdJump = action === 'jump' || action === 'double' || action === 'still' ? true : action === 'short' ? i < 18 : false;
+    const holdJump = action === 'jump' || action === 'double' || action === 'still' || action === 'hop' ? true : action === 'short' || action === 'hopShort' ? i < 18 : false;
+    const steer = action === 'hop' || action === 'hopShort' ? i < 36 : action !== 'still';
     let pressed = first && action !== 'walk';
     if (action === 'double' && !usedDouble && air && b.vy > -80) {
       pressed = true;
@@ -44,7 +46,7 @@ function simulate(L: LevelDef, solids: Solid[], p: BodyParams, from: Solid, x: n
       wind: (L.winds ?? []).filter(inside).reduce((a, w) => a + w.force, 0),
       gravityScale: Math.min(1, ...(L.lowGravity ?? []).filter(inside).map((z) => z.scale)),
     };
-    b.step({ left: dir < 0 && action !== 'still', right: dir > 0 && action !== 'still', jump: holdJump, jumpPressed: pressed }, solids, STEP, env);
+    b.step({ left: dir < 0 && steer, right: dir > 0 && steer, jump: holdJump, jumpPressed: pressed }, solids, STEP, env);
     if (!b.grounded) air = true;
     if (air && b.grounded) {
       const s = surfaceUnder(b, solids);
@@ -55,7 +57,7 @@ function simulate(L: LevelDef, solids: Solid[], p: BodyParams, from: Solid, x: n
   return undefined;
 }
 
-export function reachable(L: LevelDef, heroId: HeroId): { ok: boolean; reached: number; total: number } {
+export function reachable(L: LevelDef, heroId: HeroId): { ok: boolean; reached: number; total: number; frontier?: string } {
   const hero = HEROES[heroId];
   const p = hero.forceAssist ? assisted(hero.params) : hero.params;
   const solids = buildSolids(L, 'normal');
@@ -67,7 +69,8 @@ export function reachable(L: LevelDef, heroId: HeroId): { ok: boolean; reached: 
   const goal = walkable.find((s) => L.goal.x >= s.x && L.goal.x <= s.x + s.w && Math.abs(s.y - L.goal.y) < 2);
   if (!spawn || !goal) return { ok: false, reached: 0, total: walkable.length };
   const edges = new Map<number, Set<number>>();
-  const actions: Action[] = p.airJumps > 0 ? ['jump', 'short', 'walk', 'double', 'still'] : ['jump', 'short', 'walk', 'still'];
+  const base: Action[] = ['jump', 'short', 'walk', 'still', 'hop', 'hopShort'];
+  const actions: Action[] = p.airJumps > 0 ? [...base, 'double'] : base;
   const phases = [0, 0.7, 1.4, 2.1, 2.8, 3.5];
   for (const s of walkable) {
     const set = new Set<number>();
@@ -104,5 +107,8 @@ export function reachable(L: LevelDef, heroId: HeroId): { ok: boolean; reached: 
       queue.push(m);
     }
   }
-  return { ok: seen.has(id.get(goal)!), reached: seen.size, total: walkable.length };
+  // Surface atteinte la plus à droite (pour diagnostiquer un passage bloquant).
+  const far = [...seen].map((i) => walkable[i]).sort((a, b) => b.x + b.w - (a.x + a.w))[0];
+  const frontier = far ? `bloqué après x=${Math.round(far.x)}..${Math.round(far.x + far.w)} y=${Math.round(far.y)}` : '';
+  return { ok: seen.has(id.get(goal)!), reached: seen.size, total: walkable.length, frontier };
 }

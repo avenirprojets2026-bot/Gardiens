@@ -252,7 +252,7 @@ await test('Mobile (émulation Samsung Internet) : commandes tactiles', async ()
   const x0 = await page.evaluate(() => window.__level.body.x);
   const cdp = await ctx.newCDPSession(page);
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: p.x, y: p.y, id: 1 }] });
-  await page.waitForTimeout(1000);
+  await page.waitForFunction((x) => window.__level.body.x > x + 150, x0, { timeout: 30000 }).catch(() => {});
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
   const x1 = await page.evaluate(() => window.__level.body.x);
   if (x1 - x0 < 80) throw new Error(`le bouton ▶ tactile ne fait pas avancer (${x0} → ${x1})`);

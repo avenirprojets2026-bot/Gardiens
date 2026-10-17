@@ -23,9 +23,9 @@ export const REWARDS: Reward[] = [
   { id: 'chests', name: 'Chasseur de coffres', desc: 'Ouvre tous les coffres', icon: 'chest', tint: 0xffe9a0, got: (p) => LEVEL_ORDER.filter((id) => LEVELS[id].chest).every((id) => p.levels[id]?.chest) },
   ...WORLDS.filter((w) => w.levels.length).map<Reward>((w) => ({
     id: `boss${w.n}`,
-    name: `Ami ${w.n === 2 ? 'du Gâteau' : w.n === 3 ? 'du Vieux Chêne' : 'du Roi'}`,
+    name: `Gardien ${w.n}`,
     desc: `${w.guardian} a retrouvé le sourire`,
-    icon: w.n === 1 ? 'boss_happy' : w.n === 2 ? 'boss_happy.candy' : 'boss_happy.enchanted',
+    icon: w.n === 1 ? 'boss_happy' : w.n === 2 ? 'boss_happy.candy' : w.n === 3 ? 'boss_happy.enchanted' : `boss_happy.${w.theme}`,
     got: (p) => done(p, w.levels[w.levels.length - 1]),
   })),
   ...WORLDS.filter((w) => w.levels.length).map<Reward>((w) => ({

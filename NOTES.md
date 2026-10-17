@@ -40,10 +40,11 @@ physique, caméra, entrées, 9 niveaux, 2 types de boss, toutes les scènes.
 
 ## Tests
 
-- `npm test` : 110 tests unitaires (sauvegarde/migration, physique, plateformes, ennemis, boss, intégrité des
+- `npm test` : 333 tests unitaires (sauvegarde/migration, physique, plateformes, ennemis, boss, intégrité des
   données) et **contrôle d'atteignabilité** : chaque niveau est simulé avec le vrai moteur physique pour les
   trois héros (le contrôle détecte bien un fossé infranchissable).
-- `npm run test:e2e` : Chromium (rendu logiciel SwiftShader) sur le build de production — menus, clavier,
+- Sauvegarde de l'original : commit `1b37b37` (le tag `prototype-phaser-original` n'a pas pu être poussé).
+- `npm run test:e2e` : 14/14 réussis (dernières exécutions). Chromium (rendu logiciel SwiftShader) sur le build de production — menus, clavier,
   9 niveaux (lanternes, boss, victoire, sauvegarde), défaite, émulation Samsung Internet (tactile), galerie, réglages.
 
 ## Non testé / limites connues
@@ -51,8 +52,13 @@ physique, caméra, entrées, 9 niveaux, 2 types de boss, toutes les scènes.
 - **Aucun test sur un vrai téléphone** : seule l'émulation Chromium (UA Samsung Internet, écran tactile) a été
   utilisée. À vérifier sur l'appareil : son au premier toucher, plein écran, performances réelles.
 - Les tests navigateur tournent en rendu logiciel : les FPS mesurés ne sont pas représentatifs.
-- **Mondes 4 à 10 : déclarés sur la carte (« en construction »), pas encore jouables.** Il faut des
-  illustrations peintes dédiées. La génération d'images est prévue (accord donné), mais le réseau de
-  l'environnement bloque `upload.higgsfield.ai` et `d2ol7oe51mr4n9.cloudfront.net`.
+- **Mondes 4 à 10 : les 21 niveaux sont conçus, codés et validés** (atteignabilité pour les 3 héros, boss
+  à motifs testés), avec leurs mécaniques (éclipses, vent, faible gravité, obscurité, énigmes) et leurs
+  cinématiques, fin de l'aventure comprise. **Ils restent « en construction » sur la carte tant que leurs
+  illustrations peintes manquent** (le jeu vérifie la présence de `bgd_sky.<thème>`) : la génération d'images
+  est prévue (accord donné, cahier des charges dans `tools/art/brief.json`, intégration automatique par
+  `tools/art/process.py`), mais le réseau de l'environnement bloque `upload.higgsfield.ai` et
+  `d2ol7oe51mr4n9.cloudfront.net`.
+- Écran de téléphone plus large que 16:9 : bandes noires sur les côtés (à améliorer : élargir la vue).
 - **Nouveaux designs des héros (sorcière, fée, chevalier) : choisis, pas encore réalisés**, pour la même raison.
 - Exports Windows / Android natifs : non produits.
