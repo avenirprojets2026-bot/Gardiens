@@ -100,9 +100,8 @@ export class SettingsScene extends Phaser.Scene {
     root.add(fs);
     root.add(makeButton(this, cx + 160, 660, 'Fermer', () => this.close(), { w: 260, h: 56, size: 26, primary: true }));
     this.input.keyboard?.once('keydown-ESC', () => this.close());
-    root.setAlpha(0).setScale(0.92);
-    root.setPosition(cx * 0.08, 30);
-    this.tweens.add({ targets: root, alpha: 1, scale: 1, x: 0, y: 0, duration: 260, ease: 'Back.easeOut' });
+    root.setAlpha(0.01).setY(12); // jamais 0 : Phaser ignore les appuis sur un objet à opacité nulle
+    this.tweens.add({ targets: root, alpha: 1, y: 0, duration: 220, ease: 'Quad.easeOut' });
   }
 
   private close(): void {

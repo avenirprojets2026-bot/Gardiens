@@ -162,7 +162,7 @@ export class HeroSelectScene extends Phaser.Scene {
     }
     this.stageGlow.setTint(h.color);
     this.demoT = 0;
-    this.stage.setAlpha(0);
+    this.stage.setAlpha(0.01);
     this.tweens.add({ targets: this.stage, alpha: 1, duration: 260 });
 
     // Fiche du héros.
@@ -194,7 +194,7 @@ export class HeroSelectScene extends Phaser.Scene {
         .text(px, 466, `Pouvoir (X) : ${h.powerName}`, { fontFamily: FONT_TITLE, fontSize: '24px', fontStyle: '800', color: '#a0561a' })
         .setOrigin(0.5),
     );
-    this.info.setAlpha(0).x = DESIGN_OFFSET + 30;
+    this.info.setAlpha(0.01).x = DESIGN_OFFSET + 30;
     this.tweens.add({ targets: this.info, alpha: 1, x: DESIGN_OFFSET, duration: 280, ease: 'Cubic.easeOut' });
   }
 

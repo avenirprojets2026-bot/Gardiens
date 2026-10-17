@@ -201,7 +201,7 @@ export class WorldMapScene extends Phaser.Scene {
         );
     });
     items.push(this.add.text(cx + 520, 470, `avec ${HEROES[p.hero ?? 'soumaya'].name}`, { fontFamily: FONT_BODY, fontSize: '20px', fontStyle: '600', color: '#7a5230' }).setOrigin(1, 0));
-    this.panel = this.add.container(0, 40, items).setAlpha(0);
+    this.panel = this.add.container(0, 40, items).setAlpha(0.01); // cliquable dès l’apparition
     this.tweens.add({ targets: this.panel, alpha: 1, y: 0, duration: 380, ease: 'Back.easeOut' });
     this.input.keyboard?.off('keydown-ENTER');
     this.input.keyboard?.on('keydown-ENTER', () => {

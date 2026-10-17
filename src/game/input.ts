@@ -105,6 +105,13 @@ export class InputHub {
     };
   }
 
+  /** Relâche tout (touches, doigts, files) : à l'ouverture et à la fermeture d'une fenêtre par-dessus le niveau. */
+  releaseAll(): void {
+    Object.assign(this.touch, { left: false, right: false, jump: false, power: false });
+    for (const list of Object.values(this.keys)) for (const k of list) k.reset();
+    this.consume();
+  }
+
   consume(): void {
     this.jumpQueue = 0;
     this.powerQueue = 0;

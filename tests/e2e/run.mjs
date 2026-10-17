@@ -233,6 +233,44 @@ await test('Défaite : écran d’encouragement et reprise à la lanterne', asyn
   await ctx.close();
 });
 
+// 4 bis. Vrai clic dès l'ouverture de la pause : « Carte du monde » doit répondre tout de suite
+// (régression : les boutons d'une fenêtre encore transparente ignoraient les appuis).
+await test('Pause : quitter vers la carte dès l’ouverture (vrais clics)', async () => {
+  const { page, ctx, errors } = await open('?autotest&level=1-1&hero=hajar&nocine');
+  await page.waitForFunction(() => window.__level?.body?.grounded, null, { timeout: 60000 });
+  /** Position écran d'un bouton (conteneur) d'après son libellé. */
+  const at = (scene, label) =>
+    page.evaluate(
+      ([s, l]) => {
+        const sc = window.__game.scene.getScene(s);
+        const find = (list) => {
+          for (const o of list) {
+            if (o.label?.text?.includes(l)) return o;
+            if (o.list) {
+              const f = find(o.list);
+              if (f) return f;
+            }
+          }
+          return null;
+        };
+        const b = find(sc.children.list);
+        const m = b.getWorldTransformMatrix();
+        const cam = sc.cameras.main;
+        const r = document.querySelector('canvas').getBoundingClientRect();
+        const k = r.width / window.__game.scale.width;
+        return { x: r.left + (m.tx - cam.worldView.x) * cam.zoom * k, y: r.top + (m.ty - cam.worldView.y) * cam.zoom * k };
+      },
+      [scene, label],
+    );
+  await page.evaluate(() => window.__level.pause());
+  await page.waitForFunction(() => window.__game.scene.isActive('Overlay'), null, { timeout: 10000, polling: 'raf' });
+  const pos = await at('Overlay', 'Carte du monde');
+  await page.mouse.click(pos.x, pos.y);
+  await waitScene(page, 'WorldMap', 15000);
+  if (errors.length) throw new Error(errors.join('\n'));
+  await ctx.close();
+});
+
 // 5. Mobile (émulation Samsung Galaxy, Samsung Internet) : boutons tactiles.
 await test('Mobile (émulation Samsung Internet) : commandes tactiles', async () => {
   const ua = 'Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/26.0 Chrome/122.0.0.0 Mobile Safari/537.36';

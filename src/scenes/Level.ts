@@ -1016,7 +1016,9 @@ export class LevelScene extends Phaser.Scene {
   }
 
   pause(): void {
+    if (this.phase !== 'play') return;
     this.phase = 'paused';
+    this.inp.releaseAll();
     audio.duck(0.35);
     this.scene.pause();
     this.scene.launch('Overlay', { mode: 'pause' });
@@ -1024,6 +1026,7 @@ export class LevelScene extends Phaser.Scene {
 
   resumeFromPause(): void {
     this.phase = 'play';
+    this.inp.releaseAll();
     audio.unduck();
   }
 

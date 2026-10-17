@@ -44,6 +44,7 @@ export class OverlayScene extends Phaser.Scene {
 
   create(d: { mode: 'pause' | 'victory' | 'defeat'; result?: VictoryResult; hero?: string }): void {
     setupCamera(this);
+    this.busy = false;
     const cx = VIEW_W / 2;
     const shade = this.add.rectangle(cx, VIEW_H / 2, VIEW_W, VIEW_H, 0x061224, 0).setInteractive();
     this.tweens.add({ targets: shade, fillAlpha: 0.55, duration: 250 });
@@ -51,11 +52,23 @@ export class OverlayScene extends Phaser.Scene {
     if (d.mode === 'pause') this.pause(root);
     else if (d.mode === 'defeat') this.defeat(root, d.hero ?? '');
     else this.victory(root, d.result!);
-    root.setScale(0.85).setAlpha(0).setPosition(cx * 0.15, 54);
-    this.tweens.add({ targets: root, scale: 1, x: 0, y: 0, alpha: 1, duration: 320, ease: 'Back.easeOut' });
+    // Apparition en fondu, presque sur place : les boutons restent sous le doigt même pendant l'animation.
+    root.setAlpha(0.01).setY(12); // jamais 0 : Phaser ignore les appuis sur un objet à opacité nulle
+    this.tweens.add({ targets: root, y: 0, alpha: 1, duration: 220, ease: 'Quad.easeOut' });
+  }
+
+  /** Une seule action par fenêtre : un double appui (ou deux doigts) ne lance pas deux transitions. */
+  private busy = false;
+
+  private claim(): boolean {
+    if (this.busy) return false;
+    this.busy = true;
+    return true;
   }
 
   private leaveTo(scene: string, data?: object): void {
+    if (!this.claim()) return;
+    audio.unduck(200);
     this.scene.stop();
     this.scene.stop('HUD');
     this.scene.stop('Level');
@@ -64,6 +77,8 @@ export class OverlayScene extends Phaser.Scene {
   }
 
   private restart(levelId: string): void {
+    if (!this.claim()) return;
+    audio.unduck(200);
     this.scene.stop();
     this.scene.stop('HUD');
     this.level.scene.restart({ levelId });
@@ -80,6 +95,7 @@ export class OverlayScene extends Phaser.Scene {
         .setOrigin(0.5),
     );
     const resume = () => {
+      if (!this.claim()) return;
       this.scene.stop();
       this.scene.resume('Level');
       L.resumeFromPause();
@@ -121,12 +137,14 @@ export class OverlayScene extends Phaser.Scene {
         .setOrigin(0.5),
     );
     root.add(makeButton(this, cx + 40, 400, 'Réessayer depuis la lanterne', () => {
+      if (!this.claim()) return;
       this.scene.stop();
       this.scene.resume('Level');
       this.level.retryFromCheckpoint();
     }, { w: 400, h: 66, size: 22, primary: true }));
     root.add(makeButton(this, cx + 40, 485, 'Carte du monde', () => this.leaveTo('WorldMap'), { w: 300, h: 56, size: 22 }));
     this.input.keyboard?.once('keydown-ENTER', () => {
+      if (!this.claim()) return;
       this.scene.stop();
       this.scene.resume('Level');
       this.level.retryFromCheckpoint();
