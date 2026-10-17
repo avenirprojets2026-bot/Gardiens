@@ -5,6 +5,7 @@ import { saves, type HeroId } from '../core/save';
 import { FONT_BODY, FONT_TITLE, VIEW_H, VIEW_W } from '../config';
 import { HEROES } from '../data/heroes';
 import { CUTSCENES, SPEAKERS, type Shot } from '../data/story';
+import { bossKey, themeOf } from '../data/themes';
 import { makeButton } from '../ui/widgets';
 import { setupCamera } from './common';
 
@@ -103,7 +104,13 @@ export class CutsceneScene extends Phaser.Scene {
     this.pan = shot.pan ?? 0;
     this.buildBackdrop(shot);
     for (const a of shot.actors) {
-      const key = a.key === 'hero' ? this.heroKey() : a.key;
+      let key: string = a.key === 'hero' ? this.heroKey() : a.key;
+      let tint: number | undefined;
+      if (!this.textures.exists(key) && key.startsWith('boss_happy.')) {
+        const b = bossKey(key.split('.')[1], '_happy');
+        key = b.key;
+        tint = b.tint;
+      }
       if (!this.textures.exists(key)) continue;
       const x = VIEW_W * a.x;
       const h = a.h ?? 460;
@@ -113,6 +120,7 @@ export class CutsceneScene extends Phaser.Scene {
         this.shotLayer.add(gl);
       }
       const img = this.add.image(x, 650, key).setOrigin(0.5, 1).setFlipX(!!a.flip);
+      if (tint != null) img.setTint(tint);
       img.setScale(h / img.height);
       const finalX = x;
       if (a.enter === 'left') img.x -= 420;
@@ -135,9 +143,13 @@ export class CutsceneScene extends Phaser.Scene {
   }
 
   private buildBackdrop(shot: Shot): void {
-    if (shot.image && this.textures.exists(shot.image)) {
-      const img = this.add.image(VIEW_W / 2, VIEW_H / 2, shot.image);
-      const sc = Math.max(VIEW_W / img.width, VIEW_H / img.height) * 1.08;
+    const painted = shot.image ?? themeOf(shot.theme).sky;
+    if (painted && this.textures.exists(painted)) {
+      // Scène peinte plein écran (pour un décor raccordé en miroir, on n'en montre que la moitié gauche).
+      const img = this.add.image(VIEW_W / 2, VIEW_H / 2, painted);
+      if (painted.startsWith('sky_')) img.setCrop(0, 0, img.width / 2, img.height).setOrigin(0.25, 0.5);
+      const visibleW = painted.startsWith('sky_') ? img.width / 2 : img.width;
+      const sc = Math.max(VIEW_W / visibleW, VIEW_H / img.height) * 1.08;
       img.setScale(sc);
       this.tweens.add({ targets: img, scale: sc * 1.06, duration: 9000, ease: 'Sine.easeInOut' });
       this.shotLayer.add(img);

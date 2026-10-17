@@ -194,6 +194,7 @@ export interface Meta {
   intro?: string;
   outro?: string;
   darkness?: number;
+  sky?: string;
   talks?: TalkDef[];
   extraHints?: LevelDef['hints'];
 }
@@ -220,6 +221,7 @@ export function finish(d: Draft, m: Meta, bossPart?: ReturnType<typeof arena>): 
     intro: m.intro,
     outro: m.outro,
     darkness: m.darkness,
+    sky: m.sky,
     width: lastGround.x + lastGround.w,
     killY: 980,
     spawn: { x: 160, y: d.grounds[0].y },

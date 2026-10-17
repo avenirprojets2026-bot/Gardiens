@@ -46,6 +46,17 @@ export interface ThemeDef {
   glowProps: Record<string, number>;
   music: string;
   ambience: string;
+  /** Univers peint dont on emprunte sols, plateformes et décors en attendant des illustrations dédiées. */
+  base?: string;
+  /** Teinte appliquée aux tuiles empruntées (sols, plateformes, décors). */
+  tileTint?: number;
+  /** Décor de fond peint par défaut (clé d'image) et bande de premier plan associée. */
+  sky?: string;
+  near?: string;
+  /** Correspondance des décors prévus (k_coral…) vers des illustrations existantes. */
+  propMap?: Record<string, string>;
+  /** Illustration du boss empruntée (clé de base « boss », « boss.candy »…) et sa teinte. */
+  bossArt?: { key: string; tint: number };
 }
 
 const FOREST: ThemeDef = {
@@ -118,6 +129,7 @@ const ENCHANTED: ThemeDef = {
 
 const CRYSTAL: ThemeDef = {
   id: 'crystal',
+  base: 'enchanted', tileTint: 0xb8f4ff, sky: 'sky_lake', near: 'near_lake', propMap: { k_sign: 'e_sign', k_coral: 'e_bells', k_kelp: 'e_fern', k_geode: 'e_crystal', k_mush: 'e_mushrooms', k_jelly: 'e_berry' }, bossArt: { key: 'boss', tint: 0x9ff0ff },
   palette: () => ({
     bg: '#0c2a36', sun: 0x5ef0e0, sunAlpha: 0.3, haze: 0x5fb8c8, rays: [0x8ff8ff, 0x5ef0e0], front: 0x6f9fae, propFront: 0x78b0b8,
     heroTint: 0xe0fbff, heroGlow: 0x8ff8ff, halo: 0.34, fireflies: [0x8ff8ff, 0x5ef0e0, 0xc8fff4], motes: [0xb0fff8, 0xe0ffff],
@@ -152,31 +164,37 @@ const SKY = makeTheme('sky', { bg: '#9fd0f0', sun: 0xfff4d0, sunAlpha: 0.5, haze
   ambient: { key: 'petal', tints: [0xffffff, 0xffe8f4, 0xe8f4ff], speedY: [20, 45], scale: [0.6, 1.0], frequency: 500 },
   grading: { saturate: 0.12, contrast: 0.05, vignette: 0.3, brighten: 1.04 }, nearTint: 0x8fa8c0, spitterKey: 's_cloudbush', sporeTint: 0xe8f8ff,
   wispTint: 0xfff4b0, goalDecor: ['s_pillar', 's_cloudbush'], secretCover: 's_cloudbush', glowProps: { s_lantern: 0xfff0b0 }, music: 'music_sky', ambience: 'amb_wind',
+  base: 'forest', tileTint: 0xeef6ff, sky: 'sky_moon', near: 'near_moon', propMap: { s_chime: 'flowers2', s_cloudbush: 'bush3', s_lantern: 'lantern', s_pillar: 'boulder', s_kite: 'fern', s_flowers: 'flowers1' }, bossArt: { key: 'boss.candy', tint: 0xdcecff },
 });
 const OBSERVATORY = makeTheme('observatory', { bg: '#3a2850', sun: 0xffc35c, haze: 0xf0c890, rays: [0xffd8a0, 0xffc35c], heroGlow: 0xffe0a0, fireflies: [0xffe0a0, 0xffffff], gate: 0xffc35c }, {
   ambient: { key: 'spark', tints: [0xffe0a0, 0xffffff], additive: true, speedY: [10, 30], scale: [0.1, 0.22], frequency: 420 },
   grading: { saturate: 0.15, contrast: 0.08, vignette: 0.4 }, nearTint: 0x8a7060, spitterKey: 'o_sphere', sporeTint: 0xffd890,
   wispTint: 0xffd890, goalDecor: ['o_telescope', 'o_sphere'], secretCover: 'o_palm', glowProps: { o_lamp: 0xffd890, o_sphere: 0xffc35c }, music: 'music_observatory', ambience: 'amb_night',
+  base: 'forest', tileTint: 0xffd8a8, sky: 'sky_ruins', near: 'near_ruins', propMap: { o_telescope: 'sign', o_sphere: 'e_crystal', o_palm: 'fern', o_books: 'log', o_hourglass: 'lantern', o_lamp: 'e_bells' }, bossArt: { key: 'boss', tint: 0xffd890 },
 });
 const SHADOW = makeTheme('shadow', { bg: '#120a24', sun: 0xb07cff, sunAlpha: 0.22, haze: 0x6a4a9a, rays: [0xb07cff, 0x7f5cff], heroGlow: 0xd8b8ff, halo: 0.45, fireflies: [0xb07cff, 0xff9ad5, 0x8fd8ff], gate: 0xd8b8ff, heroTint: 0xe8e0ff }, {
   ambient: { key: 'spark', tints: [0xb07cff, 0x8f6cff], additive: true, speedY: [8, 22], scale: [0.1, 0.2], frequency: 360 },
   grading: { saturate: 0.1, contrast: 0.12, vignette: 0.55 }, nearTint: 0x4a3a6a, spitterKey: 'd_thorns', sporeTint: 0xc8a0ff,
   wispTint: 0xc8a0ff, goalDecor: ['d_crystal', 'd_tree'], secretCover: 'd_thorns', glowProps: { d_lantern: 0xffb060, d_crystal: 0xb07cff, d_flowers: 0xc8a0ff }, music: 'music_shadow', ambience: 'amb_shadow',
+  base: 'enchanted', tileTint: 0xb8a0e8, sky: 'sky_candles', near: 'near_candles', propMap: { d_lantern: 'lantern', d_thorns: 'e_fern', d_crystal: 'e_crystal', d_tree: 'e_stump', d_gargoyle: 'e_snailrock', d_flowers: 'e_bells' }, bossArt: { key: 'boss.enchanted', tint: 0xb89aff },
 });
 const STARS = makeTheme('stars', { bg: '#0a0a2a', sun: 0xd9c2ff, haze: 0x8a7ad0, rays: [0xd9c2ff, 0x9fe8ff], heroGlow: 0xe8dcff, halo: 0.4, fireflies: [0xffffff, 0xd9c2ff, 0x9fe8ff], gate: 0xe8dcff }, {
   ambient: { key: 'spark', tints: [0xffffff, 0xd9c2ff], additive: true, speedY: [-15, 15], scale: [0.08, 0.2], frequency: 200 },
   grading: { saturate: 0.18, contrast: 0.1, vignette: 0.5 }, nearTint: 0x5a5a8a, spitterKey: 't_comet', sporeTint: 0xe8dcff,
   wispTint: 0xffffff, goalDecor: ['t_globe', 't_crystal'], secretCover: 't_comet', glowProps: { t_crystal: 0xd9c2ff, t_lantern: 0xffe0a0, t_fountain: 0x9fe8ff }, music: 'music_stars', ambience: 'amb_night',
+  base: 'enchanted', tileTint: 0xe0d0ff, sky: 'sky_runes', near: 'near_runes', propMap: { t_crystal: 'e_crystal', t_globe: 'e_berry', t_pillar: 'e_stump', t_comet: 'e_bells', t_lantern: 'lantern', t_fountain: 'e_mushrooms' }, bossArt: { key: 'boss.enchanted', tint: 0xe0d0ff },
 });
 const CITADEL = makeTheme('citadel', { bg: '#e8a868', sun: 0xffd890, sunAlpha: 0.48, haze: 0xffe0c0, rays: [0xffe0b0], heroGlow: 0xfff0c0, halo: 0.2, fireflies: [0xfff0b0, 0xffd890], gate: 0xffe9b0, front: 0xa89888 }, {
   ambient: { key: 'leaf', speedY: [30, 60], scale: [0.5, 0.9], frequency: 800 },
   grading: { saturate: 0.12, contrast: 0.07, vignette: 0.35, brighten: 1.02 }, nearTint: 0x8a7868, spitterKey: 'g_roses', sporeTint: 0xffc0d0,
   wispTint: 0xffe9b0, goalDecor: ['g_statue', 'g_fountain'], secretCover: 'g_roses', glowProps: { g_torch: 0xffb060 }, music: 'music_citadel', ambience: 'amb_wind',
+  base: 'forest', tileTint: 0xfff0d8, sky: 'sky_castle', near: 'near_castle', propMap: { g_banner: 'sign', g_armor: 'boulder', g_roses: 'flowers1', g_fountain: 'mushrooms', g_statue: 'boulder', g_torch: 'lantern' }, bossArt: { key: 'boss', tint: 0xe8e0d0 },
 });
 const HEART = makeTheme('heart', { bg: '#1a1240', sun: 0xffffff, haze: 0xc8b8ff, rays: [0xff9ad5, 0x9fe8ff, 0xffe066, 0xb8f07a], heroGlow: 0xffffff, halo: 0.4, fireflies: [0xff9ad5, 0x9fe8ff, 0xffe066, 0xb8f07a], gate: 0xffffff }, {
   ambient: { key: 'spark', tints: [0xff9ad5, 0x9fe8ff, 0xffe066, 0xb8f07a], additive: true, speedY: [-20, 20], scale: [0.1, 0.24], frequency: 220 },
   grading: { saturate: 0.2, contrast: 0.1, vignette: 0.45 }, nearTint: 0x6a5a9a, spitterKey: 'z_flower', sporeTint: 0xffffff,
   wispTint: 0xc0c0d0, goalDecor: ['z_prism', 'z_tree'], secretCover: 'z_flower', glowProps: { z_prism: 0xffffff, z_lantern: 0xffe066, z_fountain: 0x9fe8ff }, music: 'music_final', ambience: 'amb_crystal',
+  base: 'enchanted', tileTint: 0xfff0ff, sky: 'sky_path', near: 'near_path', propMap: { z_prism: 'e_crystal', z_flower: 'e_bells', z_island: 'e_snailrock', z_tree: 'e_stump', z_fountain: 'e_mushrooms', z_lantern: 'lantern' }, bossArt: { key: 'boss.candy', tint: 0xc8c8e0 },
 });
 
 export const THEMES: Record<string, ThemeDef> = {
@@ -189,4 +207,17 @@ export const BASE_THEMES = ['forest', 'candy', 'enchanted'];
 
 export function themeOf(id: string | undefined): ThemeDef {
   return THEMES[id ?? 'forest'] ?? FOREST;
+}
+
+/** Illustration réellement utilisée pour un décor prévu (k_coral → e_bells en attendant son dessin). */
+export function propKey(theme: string | undefined, key: string): string {
+  return themeOf(theme).propMap?.[key] ?? key;
+}
+
+/** Illustration et teinte d'un boss (ou d'une de ses poses) pour un monde. */
+export function bossKey(theme: string | undefined, pose: '' | '_charge' | '_stunned' | '_happy'): { key: string; tint?: number } {
+  const T = themeOf(theme);
+  if (!T.bossArt) return { key: theme && theme !== 'forest' ? `boss${pose}.${theme}` : `boss${pose}` };
+  const [base, suffix] = T.bossArt.key.split('.');
+  return { key: suffix ? `${base}${pose}.${suffix}` : `${base}${pose}`, tint: T.bossArt.tint };
 }

@@ -42,7 +42,7 @@ function w5_2(): LevelDef {
   secret(d);
   windBridge(d, 1000, -350);
   flat(d, 1300, { enemy: 'flyer', heart: true });
-  return finish(d, { id: '5-2', name: 'Le Palais des Vents', world: 5, theme: 'sky', mood: 'dusk', next: '5-3' });
+  return finish(d, { id: '5-2', sky: 'sky_realm', name: 'Le Palais des Vents', world: 5, theme: 'sky', mood: 'dusk', next: '5-3' });
 }
 
 function w5_3(): LevelDef {
@@ -67,7 +67,7 @@ function w6_1(): LevelDef {
   secret(d);
   flat(d, 1000, { enemy: 'flyer', heart: true, material: 'stone' });
   return finish(d, {
-    id: '6-1', name: 'Les Dunes Étoilées', world: 6, theme: 'observatory', mood: 'dusk', next: '6-2', intro: 'world6',
+    id: '6-1', sky: 'sky_ember', name: 'Les Dunes Étoilées', world: 6, theme: 'observatory', mood: 'dusk', next: '6-2', intro: 'world6',
     talks: [{ x: 500, lines: [{ who: 'lumi', text: 'L’Observatoire ! Ses engrenages font tourner le ciel.' }, { who: 'hero', text: 'On dirait une horloge géante…' }] }],
   });
 }
@@ -123,7 +123,7 @@ function w7_2(): LevelDef {
   gap(d, 3, { style: 'move' });
   flat(d, 1000, { checkpoint: true, enemy: 'spitter' });
   flat(d, 1200, { enemy: 'flyer', heart: true, y: 500 });
-  return finish(d, { id: '7-2', name: 'Les Ponts de Brume', world: 7, theme: 'shadow', mood: 'night', next: '7-3', darkness: 0.8 });
+  return finish(d, { id: '7-2', sky: 'sky_bridge', name: 'Les Ponts de Brume', world: 7, theme: 'shadow', mood: 'night', next: '7-3', darkness: 0.8 });
 }
 
 function w7_3(): LevelDef {
@@ -132,7 +132,7 @@ function w7_3(): LevelDef {
   gap(d, 3, { style: 'fixed' });
   flat(d, 700, {});
   const b = arena(d, { kind: 'pattern', pattern: 'dragon', hp: 3, displayH: 300, name: 'Le Dragon d’Ombre', smile: 'Le Dragon d’Ombre n’avait peur que d’être seul !' });
-  return finish(d, { id: '7-3', name: 'Le Nid du Dragon', world: 7, theme: 'shadow', mood: 'night', next: '8-1', outro: 'world7_end', darkness: 0.5 }, b);
+  return finish(d, { id: '7-3', sky: 'sky_cave', name: 'Le Nid du Dragon', world: 7, theme: 'shadow', mood: 'night', next: '8-1', outro: 'world7_end', darkness: 0.5 }, b);
 }
 
 // ------------------------------------------------------------------ Monde 8 — Le Sanctuaire des Étoiles
@@ -246,7 +246,7 @@ function w10_2(): LevelDef {
   lowGrav(d, 1200);
   secret(d);
   flat(d, 1200, { enemy: 'charger', heart: true, material: 'crystal' });
-  return finish(d, { id: '10-2', name: 'L’Escalier de Lumière', world: 10, theme: 'heart', mood: 'night', next: '10-3', darkness: 0.35 });
+  return finish(d, { id: '10-2', sky: 'sky_grove', name: 'L’Escalier de Lumière', world: 10, theme: 'heart', mood: 'night', next: '10-3', darkness: 0.35 });
 }
 
 function w10_3(): LevelDef {
@@ -255,7 +255,7 @@ function w10_3(): LevelDef {
   gap(d, 3, { style: 'blink' });
   flat(d, 800, { material: 'crystal' });
   const b = arena(d, { kind: 'pattern', pattern: 'weaver', hp: 5, displayH: 340, name: 'La Fileuse d’Ombre', smile: 'La Fileuse d’Ombre tisse maintenant de la lumière !' });
-  return finish(d, { id: '10-3', name: 'Le Cœur des Mondes', world: 10, theme: 'heart', mood: 'night', next: null, outro: 'finale' }, b);
+  return finish(d, { id: '10-3', sky: 'sky_realm', name: 'Le Cœur des Mondes', world: 10, theme: 'heart', mood: 'night', next: null, outro: 'finale' }, b);
 }
 
 export const LATE_LEVELS: LevelDef[] = [

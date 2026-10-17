@@ -3,6 +3,7 @@ import { themed, type ArtManifest } from '../core/assets';
 import type { Difficulty } from '../core/save';
 import type { LevelDef } from '../data/types';
 import { isAnimated } from '../physics/movers';
+import { themeOf } from '../data/themes';
 export { buildSolids } from './solids';
 import type { PlatformDef, Solid } from '../physics/geom';
 
@@ -30,6 +31,11 @@ export class Terrain {
 
   constructor(private scene: Phaser.Scene, private L: LevelDef, private m: ArtManifest, private solids: Solid[], private difficulty: Difficulty) {}
 
+  /** Teinte des tuiles empruntées à un autre monde (aucune pour les mondes illustrés d'origine). */
+  private get tint(): number | undefined {
+    return themeOf(this.L.theme).tileTint;
+  }
+
   private k(key: string) {
     return themed(this.scene, key, this.L.theme);
   }
@@ -48,6 +54,7 @@ export class Terrain {
         const left = g.x <= 0 ? 0 : edgeW * 0.55;
         const right = g.x + g.w >= this.L.width ? 0 : edgeW * 0.55;
         const ts = s.add.tileSprite(g.x + left, g.y - topPx, g.w - left - right, 300, mid).setOrigin(0, 0).setDepth(-40);
+        if (this.tint != null) ts.setTint(this.tint);
         ts.setTileScale(sc, sc);
         ts.tilePositionX = (g.x + left) / sc;
         // Remplissage sombre sous la tuile (le sol continue vers le bas).
@@ -57,8 +64,8 @@ export class Terrain {
       if (s.textures.exists(this.k('ground_l'))) {
         for (const g of this.L.grounds) {
           const v = vis.get(g)!;
-          if (g.x > 0) s.add.image(g.x, g.y - v.topPx, this.k('ground_l')).setOrigin(0, 0).setScale(v.sc).setDepth(-39);
-          if (g.x + g.w < this.L.width) s.add.image(g.x + g.w, g.y - v.topPx, this.k('ground_r')).setOrigin(1, 0).setScale(v.sc).setDepth(-39);
+          if (g.x > 0) s.add.image(g.x, g.y - v.topPx, this.k('ground_l')).setOrigin(0, 0).setScale(v.sc).setDepth(-39).setTint(this.tint ?? 0xffffff);
+          if (g.x + g.w < this.L.width) s.add.image(g.x + g.w, g.y - v.topPx, this.k('ground_r')).setOrigin(1, 0).setScale(v.sc).setDepth(-39).setTint(this.tint ?? 0xffffff);
         }
       }
     }
@@ -97,6 +104,7 @@ export class Terrain {
     const sc = p.w / usable;
     const top = meta.top ?? src.height * (p.kind === 'log' ? 0.22 : 0.12);
     const img = s.add.image(p.x + p.w / 2, p.y - top * sc + (src.height * sc) / 2, key).setScale(sc).setDepth(-35);
+    if (this.tint != null) img.setTint(this.tint);
     const solid = this.solids.find((x) => x.ref === p);
     if (solid && (isAnimated(solid) || p.requires)) this.platVis.push({ s: solid, img, ox: img.x - p.x, oy: img.y - p.y });
     if (p.requires) {
@@ -147,7 +155,8 @@ export class Terrain {
     for (const v of this.platVis) {
       if (v.s.tag !== tag) continue;
       v.s.off = false;
-      v.img.clearTint();
+      if (this.tint != null) v.img.setTint(this.tint);
+      else v.img.clearTint();
       this.scene.tweens.add({ targets: v.img, alpha: 1, duration: 500 });
       v.img.setData('ghost', false);
     }

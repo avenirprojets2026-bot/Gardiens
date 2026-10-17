@@ -1,6 +1,6 @@
 import type Phaser from 'phaser';
 import { ART } from '../config';
-import { BASE_THEMES } from '../data/themes';
+import { BASE_THEMES, THEMES } from '../data/themes';
 
 // Manifeste des illustrations peintes (dimensions, lignes de sol des tuiles, planches d'animation).
 
@@ -62,12 +62,16 @@ export function createAnims(scene: Phaser.Scene, m: ArtManifest): void {
 /** Clé d'illustration pour un thème : « plat_big.candy » si elle existe, sinon « plat_big ». */
 export function themed(scene: Phaser.Scene, key: string, theme?: string): string {
   if (theme && theme !== 'forest' && scene.textures.exists(`${key}.${theme}`)) return `${key}.${theme}`;
+  const base = THEMES[theme ?? '']?.base;
+  if (base && base !== 'forest' && scene.textures.exists(`${key}.${base}`)) return `${key}.${base}`;
   return key;
 }
 
 /** Les illustrations d'un univers sont-elles chargées ? (sinon le monde reste « en construction »). */
 export function artReady(scene: Phaser.Scene, theme?: string): boolean {
-  return !theme || BASE_THEMES.includes(theme) || scene.textures.exists(`bgd_sky.${theme}`);
+  if (!theme || BASE_THEMES.includes(theme) || scene.textures.exists(`bgd_sky.${theme}`)) return true;
+  const sky = THEMES[theme]?.sky;
+  return !!sky && scene.textures.exists(sky);
 }
 
 /** Variante détaillée d'une couche de décor si disponible. */

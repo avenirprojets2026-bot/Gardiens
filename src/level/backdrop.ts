@@ -46,16 +46,29 @@ export class Backdrop {
     const s = this.scene;
     const th = this.L.theme;
     const pal = this.pal;
-    const sky = detailed(s, 'bg_sky', th);
-    const hills = detailed(s, 'bg_hills', th);
-    const farForest = s.textures.exists(themed(s, 'bgd_forest', th)) ? themed(s, 'bgd_forest', th) : themed(s, 'bg_forest', th);
-    this.add(sky, 0.03, 0.03, -80, 860, -100);
-    this.sunGlow = s.add.image(0, 0, 'glow').setBlendMode(Phaser.BlendModes.ADD).setTint(pal.sun).setAlpha(pal.sunAlpha).setDepth(-95);
-    this.add(hills, 0.12, 0.08, 110, 480, -90);
-    this.add('fog', 0.2, 0.1, 350, 180, -88, { alpha: 0.5, drift: 6, tint: pal.haze });
-    this.add(farForest, 0.36, 0.22, 190, 560, -80);
-    this.add('fog', 0.5, 0.3, 470, 170, -75, { alpha: 0.4, drift: 10, tint: pal.haze });
-    this.add(themed(s, 'bg_forest', th), 0.62, 0.42, 300, 680, -70, { tint: themeOf(th).nearTint });
+    const T = themeOf(th);
+    const painted = this.L.sky ?? T.sky;
+    if (painted && s.textures.exists(painted)) {
+      // Monde illustré par une grande scène peinte : la scène au fond, sa propre bande de
+      // silhouettes au milieu, de la brume entre les deux pour la profondeur.
+      this.add(painted, 0.05, 0.04, -150, 940, -100);
+      this.sunGlow = s.add.image(0, 0, 'glow').setBlendMode(Phaser.BlendModes.ADD).setTint(pal.sun).setAlpha(pal.sunAlpha * 0.6).setDepth(-95);
+      this.add('fog', 0.2, 0.1, 360, 180, -88, { alpha: 0.35, drift: 6, tint: pal.haze });
+      const near = painted.replace('sky_', 'near_');
+      this.add(s.textures.exists(near) ? near : (T.near ?? ''), 0.45, 0.3, 300, 560, -80);
+      this.add('fog', 0.55, 0.32, 480, 160, -75, { alpha: 0.3, drift: 10, tint: pal.haze });
+    } else {
+      const sky = detailed(s, 'bg_sky', th);
+      const hills = detailed(s, 'bg_hills', th);
+      const farForest = s.textures.exists(themed(s, 'bgd_forest', th)) ? themed(s, 'bgd_forest', th) : themed(s, 'bg_forest', th);
+      this.add(sky, 0.03, 0.03, -80, 860, -100);
+      this.sunGlow = s.add.image(0, 0, 'glow').setBlendMode(Phaser.BlendModes.ADD).setTint(pal.sun).setAlpha(pal.sunAlpha).setDepth(-95);
+      this.add(hills, 0.12, 0.08, 110, 480, -90);
+      this.add('fog', 0.2, 0.1, 350, 180, -88, { alpha: 0.5, drift: 6, tint: pal.haze });
+      this.add(farForest, 0.36, 0.22, 190, 560, -80);
+      this.add('fog', 0.5, 0.3, 470, 170, -75, { alpha: 0.4, drift: 10, tint: pal.haze });
+      this.add(themed(s, 'bg_forest', th), 0.62, 0.42, 300, 680, -70, { tint: T.nearTint });
+    }
     for (let i = 0; i < 6; i++) {
       const r = s.add
         .image(0, 0, 'ray')
@@ -76,7 +89,7 @@ export class Backdrop {
   }
 
   private applyMood(): void {
-    if (this.L.mood !== 'dusk') return;
+    if (this.L.mood !== 'dusk' || themeOf(this.L.theme).base) return;
     const tints: Record<string, number> = {
       bg_sky: 0xffb4c6, bgd_sky: 0xffb4c6, bg_hills: 0xa99ac8, bgd_hills: 0xa99ac8, bg_forest: 0x8f8fb8, bgd_forest: 0x9a98c0,
       fog: 0xd9c6ff, fg_top: 0x8a8aa8, fg_bottom: 0x8a8aa8, fgd_top: 0x7a7aa0, fgd_bottom: 0x7a7aa0,

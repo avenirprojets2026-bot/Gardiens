@@ -75,6 +75,13 @@ La simulation tourne à pas fixe (1/120 s) et le rendu est interpolé : le jeu s
 3. `npm test` vérifie automatiquement que les décors existent et que l'arrivée est atteignable
    **avec chacun des trois héros** (simulation avec le vrai moteur physique).
 
+## Décors peints des mondes 4 à 10
+
+Les fonds de ces mondes viennent d'illustrations fournies par l'autrice du projet. Pour les régénérer :
+`python3 -I tools/art/backdrops.py <dossier_des_images>` (produit `sky_*.webp` et `near_*.webp` dans
+`public/assets/art/` et met à jour le manifeste). Le décor d'un monde se choisit dans `src/data/themes.ts`
+(`sky`, `near`) ou par niveau (`sky` dans la définition du niveau).
+
 ## Sons et musiques
 
 Les musiques et ambiances des mondes 1 à 3 viennent du prototype. Les nouveaux effets (pouvoirs, interrupteurs,

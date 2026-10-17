@@ -579,6 +579,136 @@
    "file": "fgd_top.enchanted.webp",
    "w": 3200,
    "h": 285
+  },
+  "sky_lake": {
+   "file": "sky_lake.webp",
+   "w": 3660,
+   "h": 1024
+  },
+  "near_lake": {
+   "file": "near_lake.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_moon": {
+   "file": "sky_moon.webp",
+   "w": 3692,
+   "h": 1024
+  },
+  "near_moon": {
+   "file": "near_moon.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_realm": {
+   "file": "sky_realm.webp",
+   "w": 3088,
+   "h": 1024
+  },
+  "near_realm": {
+   "file": "near_realm.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_ember": {
+   "file": "sky_ember.webp",
+   "w": 3660,
+   "h": 1024
+  },
+  "near_ember": {
+   "file": "near_ember.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_ruins": {
+   "file": "sky_ruins.webp",
+   "w": 3620,
+   "h": 1024
+  },
+  "near_ruins": {
+   "file": "near_ruins.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_candles": {
+   "file": "sky_candles.webp",
+   "w": 3668,
+   "h": 1024
+  },
+  "near_candles": {
+   "file": "near_candles.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_bridge": {
+   "file": "sky_bridge.webp",
+   "w": 3660,
+   "h": 1024
+  },
+  "near_bridge": {
+   "file": "near_bridge.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_cave": {
+   "file": "sky_cave.webp",
+   "w": 3728,
+   "h": 1024
+  },
+  "near_cave": {
+   "file": "near_cave.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_runes": {
+   "file": "sky_runes.webp",
+   "w": 3008,
+   "h": 1024
+  },
+  "near_runes": {
+   "file": "near_runes.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_castle": {
+   "file": "sky_castle.webp",
+   "w": 3088,
+   "h": 1024
+  },
+  "near_castle": {
+   "file": "near_castle.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_path": {
+   "file": "sky_path.webp",
+   "w": 3088,
+   "h": 1024
+  },
+  "near_path": {
+   "file": "near_path.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_grove": {
+   "file": "sky_grove.webp",
+   "w": 4212,
+   "h": 1024
+  },
+  "near_grove": {
+   "file": "near_grove.webp",
+   "w": 3600,
+   "h": 764
+  },
+  "sky_jungle": {
+   "file": "sky_jungle.webp",
+   "w": 3660,
+   "h": 1024
+  },
+  "near_jungle": {
+   "file": "near_jungle.webp",
+   "w": 3600,
+   "h": 764
   }
  },
  "sheets": {

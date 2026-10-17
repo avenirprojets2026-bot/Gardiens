@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { LEVEL_ORDER, LEVELS, WORLDS } from '../../src/data/worlds';
 import { CUTSCENES } from '../../src/data/story';
 import { reachable } from './reach';
-import { BASE_THEMES } from '../../src/data/themes';
+import { propKey, themeOf } from '../../src/data/themes';
 
 const manifest = JSON.parse(readFileSync('public/assets/art/manifest.json', 'utf8'));
 const artKeys = new Set<string>([...Object.keys(manifest.images), ...Object.keys(manifest.sheets)]);
@@ -18,10 +18,11 @@ describe('données des niveaux', () => {
         expect(L.id).toBe(id);
         expect(WORLDS[L.world - 1].levels).toContain(id);
       });
-      it('décors existants (ou au cahier des charges si l’art du monde est en attente)', () => {
-        const pending = !!L.theme && !BASE_THEMES.includes(L.theme) && !artKeys.has(`bgd_sky.${L.theme}`);
-        if (pending) return; // décors listés dans tools/art/brief.json, vérifiés à l'intégration
-        for (const p of L.props) expect(artKeys.has(p.key), p.key).toBe(true);
+      it('décors existants (directement ou via le thème)', () => {
+        for (const p of L.props) expect(artKeys.has(propKey(L.theme, p.key)), p.key).toBe(true);
+        if (L.sky) expect(artKeys.has(L.sky), L.sky).toBe(true);
+        const T = themeOf(L.theme);
+        if (T.sky) expect(artKeys.has(T.sky), T.sky).toBe(true);
       });
       it('cinématiques existantes', () => {
         if (L.intro) expect(CUTSCENES[L.intro]).toBeDefined();

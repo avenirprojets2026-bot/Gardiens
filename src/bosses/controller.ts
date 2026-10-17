@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { audio } from '../core/audio';
 import { themed } from '../core/assets';
 import type { LevelDef } from '../data/types';
-import { themeOf } from '../data/themes';
+import { bossKey, themeOf } from '../data/themes';
 import type { PlatformerBody } from '../physics/body';
 import { overlaps, type Solid } from '../physics/geom';
 import { fitScale } from '../ui/widgets';
@@ -58,6 +58,12 @@ export class BossController {
     return themed(this.h.scene, key, this.h.L.theme);
   }
 
+  /** Pose du boss : illustration dédiée du monde, ou illustration empruntée et teintée. */
+  private pose(p: '' | '_charge' | '_stunned' | '_happy'): string {
+    const b = bossKey(this.h.L.theme, p);
+    return this.h.scene.textures.exists(b.key) ? b.key : this.k(`boss${p}`);
+  }
+
   build(): void {
     const def = this.h.L.boss;
     this.done = !def;
@@ -69,7 +75,9 @@ export class BossController {
       this.pattern = new PatternBoss(def.x, def.y, def.minX, def.maxX, def.hp, cfg);
       this.logic = this.pattern;
     } else this.logic = this.isTree ? new TreeBoss(def.x, def.y, def.minX, def.maxX, def.hp) : new ChargerBoss(def.x, def.y, def.minX, def.maxX, def.hp);
-    this.img = s.add.image(def.x, def.y, this.k('boss')).setOrigin(0.5, 0.97).setDepth(-12);
+    this.img = s.add.image(def.x, def.y, this.pose('')).setOrigin(0.5, 0.97).setDepth(-12);
+    const tint = bossKey(this.h.L.theme, '').tint;
+    if (tint != null) this.img.setTint(tint);
     this.img.setData('base', def.displayH ? def.displayH / this.img.height : (this.isTree ? 400 : 270) / this.img.width);
     if (this.isTree) this.noseGlow = s.add.image(def.x, def.y - 200, 'glow').setBlendMode(Phaser.BlendModes.ADD).setTint(0xffd36b).setDepth(-11).setVisible(false);
     this.warn = s.add.image(def.x, def.y, 'glow').setBlendMode(Phaser.BlendModes.ADD).setTint(0xff6040).setDepth(-13).setAlpha(0);
@@ -241,7 +249,7 @@ export class BossController {
     const P = this.pattern;
     const stunned = P ? st === 'tired' || st === 'hurt' : this.isTree ? st === 'tired' || st === 'hurt' : st === 'stunned' || st === 'hurt';
     const angry = P ? st !== 'move' && st !== 'intro' && !stunned && st !== 'recover' : this.isTree ? st === 'acorns' || st === 'roots' : st === 'windup' || st === 'charge';
-    const key = stunned ? this.k('boss_stunned') : st === 'defeated' ? this.k('boss_happy') : angry ? this.k('boss_charge') : this.k('boss');
+    const key = stunned ? this.pose('_stunned') : st === 'defeated' ? this.pose('_happy') : angry ? this.pose('_charge') : this.pose('');
     if (this.img.texture.key !== key && this.h.scene.textures.exists(key)) this.img.setTexture(key);
     const base = this.img.getData('base') as number;
     let sx = 1, sy = 1, ox = 0, rot = 0;

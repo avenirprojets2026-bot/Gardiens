@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { themed } from '../core/assets';
 import type { LevelDef } from '../data/types';
-import { themeOf } from '../data/themes';
+import { propKey, themeOf } from '../data/themes';
 import { fitScale } from '../ui/widgets';
 import { createEnemy, enemyRect, stepEnemy, stepSpore, type EnemyState, type Spore, type TargetInfo } from './logic';
 
@@ -39,7 +39,7 @@ export class Enemies {
     const s = this.scene;
     const theme = themeOf(this.L.theme);
     const beetle = themed(s, 'beetle', this.L.theme);
-    const mush = theme.spitterKey;
+    const mush = propKey(this.L.theme, theme.spitterKey);
     for (const d of this.L.enemies) {
       const st = createEnemy(d, this.groundAt(d.x));
       let img: Phaser.GameObjects.Image;

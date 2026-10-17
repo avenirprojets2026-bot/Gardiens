@@ -52,13 +52,15 @@ physique, caméra, entrées, 9 niveaux, 2 types de boss, toutes les scènes.
 - **Aucun test sur un vrai téléphone** : seule l'émulation Chromium (UA Samsung Internet, écran tactile) a été
   utilisée. À vérifier sur l'appareil : son au premier toucher, plein écran, performances réelles.
 - Les tests navigateur tournent en rendu logiciel : les FPS mesurés ne sont pas représentatifs.
-- **Mondes 4 à 10 : les 21 niveaux sont conçus, codés et validés** (atteignabilité pour les 3 héros, boss
-  à motifs testés), avec leurs mécaniques (éclipses, vent, faible gravité, obscurité, énigmes) et leurs
-  cinématiques, fin de l'aventure comprise. **Ils restent « en construction » sur la carte tant que leurs
-  illustrations peintes manquent** (le jeu vérifie la présence de `bgd_sky.<thème>`) : la génération d'images
-  est prévue (accord donné, cahier des charges dans `tools/art/brief.json`, intégration automatique par
-  `tools/art/process.py`), mais le réseau de l'environnement bloque `upload.higgsfield.ai` et
-  `d2ol7oe51mr4n9.cloudfront.net`.
+- **Mondes 4 à 10 : jouables.** Les 21 niveaux sont conçus, codés et validés (atteignabilité pour les 3 héros,
+  boss à motifs testés), avec leurs mécaniques (éclipses, vent, faible gravité, obscurité, énigmes) et leurs
+  cinématiques, fin de l'aventure comprise. Leurs **décors peints viennent des illustrations fournies par
+  l'utilisatrice** (13 scènes, autorisées pour le jeu) : `tools/art/backdrops.py` en tire un grand fond
+  raccordable (`sky_*.webp`) et une bande de premier plan (`near_*.webp`) pour la profondeur.
+  **Provisoire** : sols, plateformes, petits décors et boss de ces mondes réutilisent l'art des mondes 1 à 3,
+  recolorés par thème (`tileTint`, teintes de boss). Des illustrations dédiées (sols, boss, nouveaux héros)
+  restent à générer : cahier des charges dans `tools/art/brief.json`, intégration par `tools/art/process.py`,
+  mais le réseau de l'environnement bloque `upload.higgsfield.ai` et `d2ol7oe51mr4n9.cloudfront.net`.
 - Écrans larges (téléphones 19,5:9) : la vue s’élargit jusqu’à 1600 px logiques, sans bandes noires.
 - Captures réelles du jeu exécuté : dossier `docs-captures/`.
 - **Nouveaux designs des héros (sorcière, fée, chevalier) : choisis, pas encore réalisés**, pour la même raison.

@@ -8,7 +8,7 @@ import { FLAGS, VIEW_H, VIEW_W } from '../config';
 import { HEROES, POWER_HINT, type HeroDef } from '../data/heroes';
 import type { LevelDef, SwitchDef, TalkDef } from '../data/types';
 import { LEVELS, nextPlayable } from '../data/worlds';
-import { themeOf } from '../data/themes';
+import { propKey, themeOf } from '../data/themes';
 import { CameraRig, type CameraTarget } from '../game/camera';
 import { InputHub, type InputFrame } from '../game/input';
 import { BossController, type BossHost } from '../bosses/controller';
@@ -266,16 +266,19 @@ export class LevelScene extends Phaser.Scene {
 
   private buildObjects(): void {
     const L = this.L;
+    const T = themeOf(L.theme);
     for (const p of L.props) {
-      if (!this.textures.exists(p.key)) continue;
+      const key = propKey(L.theme, p.key);
+      if (!this.textures.exists(key)) continue;
       const img = this.add
-        .image(p.x, p.y + 8, p.key)
+        .image(p.x, p.y + 8, key)
         .setOrigin(0.5, 1)
         .setScale(p.scale ?? 0.5)
         .setFlipX(!!p.flip)
         .setDepth(p.front ? 40 : -37);
       if (p.front) img.setTint(this.pal.propFront).setScale(img.scale * 0.7).setAlpha(0.92);
-      const glowTint = themeOf(L.theme).glowProps[p.key] ?? GLOW_PROPS[p.key];
+      else if (T.tileTint != null) img.setTint(T.tileTint);
+      const glowTint = T.glowProps[p.key] ?? GLOW_PROPS[key];
       if (glowTint != null) {
         const g = this.add
           .image(p.x, p.y - img.displayHeight * 0.55, 'glow')
@@ -286,7 +289,7 @@ export class LevelScene extends Phaser.Scene {
           .setDepth(img.depth - 1);
         this.tweens.add({ targets: g, alpha: 0.12, duration: 1600 + Math.random() * 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
       }
-      if (SWAYING.has(p.key))
+      if (SWAYING.has(key))
         this.swayers.push({ obj: img, x: p.x, amp: p.key === 'grass' || p.key === 'fern' ? 0.07 : 0.035, v: 0, a: 0, phase: Math.random() * 6 });
     }
     for (const c of L.crystals) {
@@ -325,7 +328,7 @@ export class LevelScene extends Phaser.Scene {
     const gy = L.goal.y;
     this.goalGlow = this.add.image(L.goal.x, gy - 170, 'glow').setTint(0x9fe8ff).setBlendMode(Phaser.BlendModes.ADD).setScale(7).setAlpha(0.55).setDepth(-25);
     this.goalCrystal = this.add.image(L.goal.x, gy - 170, 'crystal').setScale(this.fit('crystal', 150, 'h')).setDepth(-24);
-    const [a, b] = themeOf(L.theme).goalDecor;
+    const [a, b] = themeOf(L.theme).goalDecor.map((k) => propKey(L.theme, k));
     if (this.textures.exists(a) && this.textures.exists(b)) {
       this.add.image(L.goal.x - 75, gy + 10, a).setOrigin(0.5, 1).setScale(this.fit(a, 180)).setDepth(-26);
       this.add.image(L.goal.x + 80, gy + 10, b).setOrigin(0.5, 1).setScale(this.fit(b, 160)).setFlipX(true).setDepth(-26);
@@ -378,7 +381,7 @@ export class LevelScene extends Phaser.Scene {
         .setDepth(-30);
     }
     for (const sec of L.secrets ?? []) {
-      const key = sec.coverKey ?? themeOf(L.theme).secretCover;
+      const key = propKey(L.theme, sec.coverKey ?? themeOf(L.theme).secretCover);
       const cover: Phaser.GameObjects.Image[] = [];
       if (this.textures.exists(key)) {
         const n = Math.max(2, Math.round(sec.w / 140));

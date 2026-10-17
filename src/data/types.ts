@@ -141,6 +141,8 @@ export interface LevelDef {
   barriers?: BarrierDef[];
   secrets?: SecretDef[];
   talks?: TalkDef[];
+  /** Décor de fond peint propre à ce niveau (sinon celui du thème). */
+  sky?: string;
   /** Cinématique jouée avant le niveau (une seule fois, puis rejouable depuis la galerie). */
   intro?: string;
   /** Cinématique jouée après la victoire. */
